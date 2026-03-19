@@ -88,16 +88,26 @@ To preview the production build:
 ```sh
 npm run preview
 ```
-- Edit files directly within the Codespace and commit and push your changes once you're done.
 
-## What technologies are used for this project?
+## Deployment
 
-This project is built with:
+### Deploy to Vercel
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
+The easiest way to deploy this application is using [Vercel](https://vercel.com).
+
+**Steps:**
+
+1. Push your code to a Git repository (GitHub, GitLab, or Bitbucket)
+2. Visit [Vercel](https://vercel.com) and sign in with your Git provider
+3. Click "New Project" and select your repository
+4. Vercel will automatically detect the Vite configuration
+5. Click "Deploy" and your site will be live!
+
+**Automatic Deployments:**
+- Any push to your main branch will automatically trigger a new deployment
+- Pull requests will generate preview deployments for testing
+
+For more information, see the [Vercel documentation](https://vercel.com/docs)
 - Tailwind CSS
 
 ## How can I deploy this project?
