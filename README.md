@@ -1,53 +1,93 @@
-# Welcome to your Lovable project
+# Women's Catalog Website
 
-## Project info
+## About This Project
 
-**URL**: https://lovable.dev/projects/0923c0b9-8e4f-4734-92c1-662efb1761c4
+Welcome to our Women's Catalog Website! This is a modern, responsive e-commerce platform dedicated to showcasing a curated collection of women's fashion items including cardigans, sweaters, jackets, and more. Browse through our exclusive selection of stylish and high-quality apparel designed for every season and occasion.
 
-## How can I edit this code?
+## Features
 
-There are several ways of editing your application.
+- **Product Catalog**: Browse an extensive collection of women's cardigans, sweaters, and fashion items
+- **Best Sellers**: Check out our most popular items and customer favorites
+- **Product Details**: Detailed product information including descriptions, pricing, and availability
+- **Search Functionality**: Easily find products using our search feature
+- **Product Categories**: Organized categories to help you navigate and discover items
+- **Responsive Design**: Optimized for desktop, tablet, and mobile devices
+- **Modern UI**: Built with React, TypeScript, and Tailwind CSS for a sleek user experience
 
-**Use Lovable**
+## Getting Started
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/0923c0b9-8e4f-4734-92c1-662efb1761c4) and start prompting.
+### Prerequisites
 
-Changes made via Lovable will be committed automatically to this repo.
+- Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
 
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
+### Installation
 
 ```sh
-# Step 1: Clone the repository using the project's Git URL.
+# Step 1: Clone the repository
 git clone <YOUR_GIT_URL>
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+# Step 2: Navigate to the project directory
+cd Catalog-Website
 
-# Step 3: Install the necessary dependencies.
+# Step 3: Install dependencies
 npm i
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
+# Step 4: Start the development server
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+The application will be available at `http://localhost:5173` with hot module reloading enabled.
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+## Technology Stack
 
-**Use GitHub Codespaces**
+- **Frontend Framework**: React with TypeScript
+- **Build Tool**: Vite
+- **Styling**: Tailwind CSS
+- **UI Components**: Custom component library
+- **Package Manager**: npm / Bun
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
+## Project Structure
+
+```
+src/
+├── components/          # Reusable UI components
+│   ├── BestSellers.tsx
+│   ├── Header.tsx
+│   ├── Footer.tsx
+│   ├── HeroCarousel.tsx
+│   └── ui/             # UI component library
+├── pages/              # Page components
+│   ├── Index.tsx
+│   ├── Products.tsx
+│   ├── ProductCategory.tsx
+│   ├── ProductDetails.tsx
+│   ├── SearchResults.tsx
+│   ├── AboutUs.tsx
+│   └── NotFound.tsx
+├── hooks/              # Custom React hooks
+├── lib/                # Utility functions
+└── assets/             # Images and static files
+```
+
+## Development
+
+To run the development server with hot reloading:
+
+```sh
+npm run dev
+```
+
+To build for production:
+
+```sh
+npm run build
+```
+
+To preview the production build:
+
+```sh
+npm run preview
+```
 - Edit files directly within the Codespace and commit and push your changes once you're done.
 
 ## What technologies are used for this project?
