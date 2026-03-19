@@ -108,16 +108,3 @@ The easiest way to deploy this application is using [Vercel](https://vercel.com)
 - Pull requests will generate preview deployments for testing
 
 For more information, see the [Vercel documentation](https://vercel.com/docs)
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/0923c0b9-8e4f-4734-92c1-662efb1761c4) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
