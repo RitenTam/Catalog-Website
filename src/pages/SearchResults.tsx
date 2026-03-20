@@ -74,7 +74,7 @@ const SearchResults = () => {
   }, [query]);
 
   const handleWhatsAppInquiry = (product: any) => {
-    const message = "Hi, I'm interested in this sweater.";
+    const message = `Hi, I'm interested in the ${product.name}. Can you provide more details?`;
     const phoneNumber = '9779863651986';
     const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
     window.location.href = whatsappUrl;
