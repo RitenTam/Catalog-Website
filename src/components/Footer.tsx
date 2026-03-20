@@ -128,7 +128,7 @@ const Footer = () => {
 
         {/* Google Maps Embed */}
         <div className="mt-12 pt-8 border-t border-primary-foreground/20">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
             
             {/* Map */}
             <div className="order-2 lg:order-1">
@@ -145,6 +145,16 @@ const Footer = () => {
                   title="ChaurasiyaHojiyari Store Location"
                 ></iframe>
               </div>
+            </div>
+
+            {/* Why Visit Us */}
+            <div className="order-1 lg:order-2">
+              <h4 className="text-lg font-semibold mb-4">Why Visit Us?</h4>
+              <ul className="list-disc list-inside space-y-2 text-primary-foreground/80">
+                <li>✔ Try before you buy</li>
+                <li>✔ Exclusive in-store collection</li>
+                <li>✔ Personalized fitting</li>
+              </ul>
             </div>
 
           </div>
