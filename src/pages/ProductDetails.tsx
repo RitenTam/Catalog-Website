@@ -14,7 +14,7 @@ const ProductDetails = () => {
   const { productId } = useParams();
   const [selectedColor, setSelectedColor] = useState('Cream');
   const [selectedSize, setSelectedSize] = useState('M');
-  const [quantity, setQuantity] = useState(1);
+  const [quantity, setQuantity] = useState<number | string>(1);
 
   const product = {
     id: productId,
@@ -39,6 +39,24 @@ const ProductDetails = () => {
   };
 
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  const handleQuantityChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const val = e.target.value;
+    if (val === '') {
+      setQuantity('');
+    } else {
+      const num = parseInt(val);
+      if (!isNaN(num) && num > 0) {
+        setQuantity(num);
+      }
+    }
+  };
+
+  const handleQuantityBlur = () => {
+    if (quantity === '' || quantity === 0) {
+      setQuantity(1);
+    }
+  };
 
   const handleWhatsAppInquiry = () => {
     const message = "Hi, I'm interested in this sweater.";
@@ -149,7 +167,7 @@ const ProductDetails = () => {
                   <h3 className="text-lg font-semibold mb-3">Quantity</h3>
                   <div className="flex items-center gap-3">
                     <button
-                      onClick={() => setQuantity(Math.max(1, quantity - 1))}
+                      onClick={() => setQuantity(Math.max(1, (Number(quantity) || 1) - 1))}
                       className="p-2 rounded-lg border border-muted hover:border-primary transition-colors"
                     >
                       <Minus className="w-4 h-4" />
@@ -157,12 +175,13 @@ const ProductDetails = () => {
                     <Input
                       type="number"
                       value={quantity}
-                      onChange={(e) => setQuantity(Math.max(1, parseInt(e.target.value) || 1))}
+                      onChange={handleQuantityChange}
+                      onBlur={handleQuantityBlur}
                       className="w-20 text-center"
                       min="1"
                     />
                     <button
-                      onClick={() => setQuantity(quantity + 1)}
+                      onClick={() => setQuantity((Number(quantity) || 1) + 1)}
                       className="p-2 rounded-lg border border-muted hover:border-primary transition-colors"
                     >
                       <Plus className="w-4 h-4" />
