@@ -60,10 +60,22 @@ const BestSellers = () => {
   };
 
   const handleWhatsAppInquiry = (product: any) => {
-    const message = "Hi, I'm interested in this sweater.";
+    const message = `Hi, I'm interested in ${product.name}. Can you provide more details?`;
     const phoneNumber = '9779863651986';
-    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
-    window.location.href = whatsappUrl;
+    
+    // Detect if user is on mobile
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    
+    let whatsappUrl;
+    if (isMobile) {
+      // Use whatsapp:// scheme for mobile app
+      whatsappUrl = `whatsapp://send?phone=${phoneNumber}&text=${encodeURIComponent(message)}`;
+    } else {
+      // Use web WhatsApp for desktop
+      whatsappUrl = `https://web.whatsapp.com/send?phone=${phoneNumber}&text=${encodeURIComponent(message)}`;
+    }
+    
+    window.open(whatsappUrl, '_blank');
   };
 
   return (
