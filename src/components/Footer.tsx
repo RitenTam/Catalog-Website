@@ -2,6 +2,8 @@ import { MapPin, Phone, Mail, MessageCircle, Instagram, Facebook, Twitter } from
 import { Button } from '@/components/ui/button';
 
 const Footer = () => {
+  const currentYear = new Date().getFullYear();
+  
   const quickLinks = [
     { name: 'Product', href: '/products' },
     { name: 'About Us', href: '#about' }
@@ -164,7 +166,7 @@ const Footer = () => {
         <div className="mt-12 pt-8 border-t border-primary-foreground/20">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             <div className="text-primary-foreground/70 text-center md:text-left">
-              <p>&copy; 2024 ChaurasiyaHojiyari. All rights reserved.</p>
+              <p>&copy; {currentYear} Ritendra Tamang | All Rights Reserved</p>
             </div>
             <div className="flex space-x-6 text-sm">
               <a href="#terms" className="footer-link text-primary-foreground/70 hover:text-primary-foreground">
