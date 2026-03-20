@@ -147,23 +147,6 @@ const Footer = () => {
               </div>
             </div>
 
-            {/* Newsletter Signup */}
-            <div className="order-1 lg:order-2 text-center lg:text-left">
-              <h4 className="text-lg font-semibold mb-4">Stay Updated</h4>
-              <p className="text-primary-foreground/80 mb-6">
-                Subscribe to our newsletter for exclusive offers and new collection updates.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto lg:mx-0">
-                <input
-                  type="email"
-                  placeholder="Enter your email"
-                  className="flex-1 px-4 py-3 rounded-lg text-foreground bg-primary-foreground focus:outline-none focus:ring-2 focus:ring-accent"
-                />
-                <Button className="bg-accent hover:bg-accent/90 text-accent-foreground px-6 py-3 font-semibold">
-                  Subscribe
-                </Button>
-              </div>
-            </div>
           </div>
         </div>
 
