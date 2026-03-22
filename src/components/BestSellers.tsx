@@ -2,9 +2,12 @@ import { useState } from 'react';
 import { ChevronLeft, ChevronRight, MessageCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import product1 from '@/assets/product-1.jpg';
-import product2 from '@/assets/product-2.jpg';
-import product3 from '@/assets/product-3.jpg';
+import longCardigan1 from '@/assets/Long-Cardigan 1.jpg';
+import longCardigan2 from '@/assets/Long-Cardigan 2.jpg';
+import longCardigan3 from '@/assets/Long-Cardigan 3.jpg';
+import shortCardigan1 from '@/assets/IMG-20260322-WA0008.jpg';
+import shortCardigan2 from '@/assets/IMG-20260322-WA0009.jpg';
+import shortCardigan3 from '@/assets/IMG-20260322-WA0010.jpg';
 
 const BestSellers = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -12,39 +15,39 @@ const BestSellers = () => {
   const products = [
     {
       id: 1,
-      name: "Elegant Cream Turtleneck",
-      image: product1,
-      category: "Turtleneck"
+      name: "Long Cardigan Style 1",
+      image: longCardigan1,
+      category: "Long Cardigan"
     },
     {
       id: 2,
-      name: "Classic Beige Cardigan",
-      image: product2,
-      category: "Cardigan"
+      name: "Long Cardigan Style 2",
+      image: longCardigan2,
+      category: "Long Cardigan"
     },
     {
       id: 3,
-      name: "Soft Grey V-Neck",
-      image: product3,
-      category: "V-Neck"
+      name: "Long Cardigan Style 3",
+      image: longCardigan3,
+      category: "Long Cardigan"
     },
     {
       id: 4,
-      name: "Cozy Maroon Pullover",
-      image: product1,
-      category: "Pullover"
+      name: "Short Cardigan Style 1",
+      image: shortCardigan1,
+      category: "Short Cardigan"
     },
     {
       id: 5,
-      name: "Warm Pink Knit Sweater",
-      image: product2,
-      category: "Knit"
+      name: "Short Cardigan Style 2",
+      image: shortCardigan2,
+      category: "Short Cardigan"
     },
     {
       id: 6,
-      name: "Premium Wool Blend Cardigan",
-      image: product3,
-      category: "Premium"
+      name: "Short Cardigan Style 3",
+      image: shortCardigan3,
+      category: "Short Cardigan"
     }
   ];
 
