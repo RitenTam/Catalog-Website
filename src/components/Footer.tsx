@@ -10,12 +10,8 @@ const Footer = () => {
   ];
 
   const categories = [
-    'Turtleneck Sweaters',
-    'Cardigans',
-    'V-Neck Sweaters', 
-    'Pullovers',
-    'Knit Sweaters',
-    'Premium Collection'
+    'Long Cardigans',
+    'Short Cardigans'
   ];
 
   return (

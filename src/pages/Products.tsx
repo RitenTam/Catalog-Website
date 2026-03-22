@@ -10,46 +10,18 @@ import product3 from '@/assets/product-3.jpg';
 const Products = () => {
   const categories = [
     {
-      id: 'turtleneck',
-      name: 'Turtleneck Sweaters',
-      image: product1,
-      description: 'Elegant and sophisticated turtleneck sweaters for a classic look',
-      itemCount: 12
-    },
-    {
-      id: 'cardigan',
-      name: 'Cardigans',
+      id: 'long-cardigans',
+      name: 'Long Cardigans',
       image: product2,
-      description: 'Versatile cardigans perfect for layering and style',
-      itemCount: 15
-    },
-    {
-      id: 'vneck',
-      name: 'V-Neck Sweaters',
-      image: product3,
-      description: 'Flattering V-neck designs for a refined appearance',
-      itemCount: 10
-    },
-    {
-      id: 'pullover',
-      name: 'Pullovers',
-      image: product1,
-      description: 'Cozy pullovers for ultimate comfort and warmth',
+      description: 'Elegant long cardigans for a cozy, statement look',
       itemCount: 18
     },
     {
-      id: 'knit',
-      name: 'Knit Sweaters',
-      image: product2,
-      description: 'Handcrafted knit sweaters with intricate patterns',
-      itemCount: 8
-    },
-    {
-      id: 'premium',
-      name: 'Premium Collection',
+      id: 'short-cardigans',
+      name: 'Short Cardigans',
       image: product3,
-      description: 'Luxury woolen sweaters with the finest materials',
-      itemCount: 6
+      description: 'Stylish short cardigans for everyday layering',
+      itemCount: 12
     }
   ];
 

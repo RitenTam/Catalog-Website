@@ -28,6 +28,14 @@ const ProductCategory = () => {
       name: 'Cardigans',
       description: 'Versatile cardigans perfect for layering and style'
     },
+    'long-cardigans': {
+      name: 'Long Cardigans',
+      description: 'Elegant long cardigans for a cozy statement look'
+    },
+    'short-cardigans': {
+      name: 'Short Cardigans',
+      description: 'Chic short cardigans for everyday layering'
+    },
     vneck: {
       name: 'V-Neck Sweaters',
       description: 'Flattering V-neck designs for a refined appearance'
@@ -50,26 +58,23 @@ const ProductCategory = () => {
 
   const getProductsForCategory = (categoryId: string) => {
     switch (categoryId) {
-      case 'cardigan':
+      case 'long-cardigans':
         return [
           { id: 1, name: 'Long Cardigan Style 1', image: longCardigan1, colors: ['Cream', 'Beige', 'Grey'] },
           { id: 2, name: 'Long Cardigan Style 2', image: longCardigan2, colors: ['Pink', 'White', 'Navy'] },
-          { id: 3, name: 'Long Cardigan Style 3', image: longCardigan3, colors: ['Grey', 'Black', 'Brown'] },
-          { id: 4, name: 'Long Cardigan Style 4', image: longCardigan4, colors: ['Maroon', 'Purple', 'Green'] },
-          { id: 5, name: 'Long Cardigan Style 5', image: longCardigan5, colors: ['Pink', 'Coral', 'Peach'] },
-          { id: 6, name: 'Long Cardigan Style 6', image: longCardigan6, colors: ['Camel', 'Ivory', 'Charcoal'] },
-          { id: 7, name: 'Long Cardigan Style 7', image: longCardigan7, colors: ['Cream', 'Beige', 'Grey'] },
-          { id: 8, name: 'Long Cardigan Style 8', image: longCardigan8, colors: ['Pink', 'White', 'Navy'] },
-          { id: 9, name: 'Long Cardigan Style 9', image: longCardigan9, colors: ['Grey', 'Black', 'Brown'] }
+          { id: 3, name: 'Long Cardigan Style 3', image: longCardigan3, colors: ['Grey', 'Black', 'Brown'] }
+        ];
+      case 'short-cardigans':
+        return [
+          { id: 1, name: 'Short Cardigan Style 1', image: longCardigan4, colors: ['Maroon', 'Purple', 'Green'] },
+          { id: 2, name: 'Short Cardigan Style 2', image: longCardigan5, colors: ['Pink', 'Coral', 'Peach'] },
+          { id: 3, name: 'Short Cardigan Style 3', image: longCardigan6, colors: ['Camel', 'Ivory', 'Charcoal'] }
         ];
       default:
         return [
           { id: 1, name: 'Classic Wool Turtleneck', image: product1, colors: ['Cream', 'Beige', 'Grey'] },
           { id: 2, name: 'Premium Cashmere Blend', image: product2, colors: ['Pink', 'White', 'Navy'] },
-          { id: 3, name: 'Soft Merino Wool', image: product3, colors: ['Grey', 'Black', 'Brown'] },
-          { id: 4, name: 'Elegant Ribbed Design', image: product1, colors: ['Maroon', 'Purple', 'Green'] },
-          { id: 5, name: 'Cozy Winter Blend', image: product2, colors: ['Pink', 'Coral', 'Peach'] },
-          { id: 6, name: 'Luxurious Alpaca Wool', image: product3, colors: ['Camel', 'Ivory', 'Charcoal'] }
+          { id: 3, name: 'Soft Merino Wool', image: product3, colors: ['Grey', 'Black', 'Brown'] }
         ];
     }
   };
