@@ -12,15 +12,39 @@ const BestSellers = () => {
   const products = [
     {
       id: 1,
-      name: "Long Cardigans",
+      name: "Elegant Cream Turtleneck",
       image: product1,
-      category: "Cardigan"
+      category: "Turtleneck"
     },
     {
       id: 2,
-      name: "Short Cardigans",
+      name: "Classic Beige Cardigan",
       image: product2,
       category: "Cardigan"
+    },
+    {
+      id: 3,
+      name: "Soft Grey V-Neck",
+      image: product3,
+      category: "V-Neck"
+    },
+    {
+      id: 4,
+      name: "Cozy Maroon Pullover",
+      image: product1,
+      category: "Pullover"
+    },
+    {
+      id: 5,
+      name: "Warm Pink Knit Sweater",
+      image: product2,
+      category: "Knit"
+    },
+    {
+      id: 6,
+      name: "Premium Wool Blend Cardigan",
+      image: product3,
+      category: "Premium"
     }
   ];
 

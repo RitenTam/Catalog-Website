@@ -6,6 +6,15 @@ import Footer from '@/components/Footer';
 import product1 from '@/assets/product-1.jpg';
 import product2 from '@/assets/product-2.jpg';
 import product3 from '@/assets/product-3.jpg';
+import longCardigan1 from '@/assets/Long-Cardigan 1.jpg';
+import longCardigan2 from '@/assets/Long-Cardigan 2.jpg';
+import longCardigan3 from '@/assets/Long-Cardigan 3.jpg';
+import longCardigan4 from '@/assets/Long-Cardigan 4.jpg';
+import longCardigan5 from '@/assets/Long-Cardigan 5.jpg';
+import longCardigan6 from '@/assets/Long-Cardigan 6.jpg';
+import longCardigan7 from '@/assets/Long-Cardigan 7.jpg';
+import longCardigan8 from '@/assets/Long-Cardigan 8.jpg';
+import longCardigan9 from '@/assets/Long-Cardigan 9.jpg';
 
 const ProductCategory = () => {
   const { categoryId } = useParams();
@@ -39,44 +48,33 @@ const ProductCategory = () => {
 
   const currentCategory = categoryData[categoryId as keyof typeof categoryData] || categoryData.turtleneck;
 
-  const products = [
-    {
-      id: 1,
-      name: 'Classic Wool Turtleneck',
-      image: product1,
-      colors: ['Cream', 'Beige', 'Grey']
-    },
-    {
-      id: 2,
-      name: 'Premium Cashmere Blend',
-      image: product2,
-      colors: ['Pink', 'White', 'Navy']
-    },
-    {
-      id: 3,
-      name: 'Soft Merino Wool',
-      image: product3,
-      colors: ['Grey', 'Black', 'Brown']
-    },
-    {
-      id: 4,
-      name: 'Elegant Ribbed Design',
-      image: product1,
-      colors: ['Maroon', 'Purple', 'Green']
-    },
-    {
-      id: 5,
-      name: 'Cozy Winter Blend',
-      image: product2,
-      colors: ['Pink', 'Coral', 'Peach']
-    },
-    {
-      id: 6,
-      name: 'Luxurious Alpaca Wool',
-      image: product3,
-      colors: ['Camel', 'Ivory', 'Charcoal']
+  const getProductsForCategory = (categoryId: string) => {
+    switch (categoryId) {
+      case 'cardigan':
+        return [
+          { id: 1, name: 'Long Cardigan Style 1', image: longCardigan1, colors: ['Cream', 'Beige', 'Grey'] },
+          { id: 2, name: 'Long Cardigan Style 2', image: longCardigan2, colors: ['Pink', 'White', 'Navy'] },
+          { id: 3, name: 'Long Cardigan Style 3', image: longCardigan3, colors: ['Grey', 'Black', 'Brown'] },
+          { id: 4, name: 'Long Cardigan Style 4', image: longCardigan4, colors: ['Maroon', 'Purple', 'Green'] },
+          { id: 5, name: 'Long Cardigan Style 5', image: longCardigan5, colors: ['Pink', 'Coral', 'Peach'] },
+          { id: 6, name: 'Long Cardigan Style 6', image: longCardigan6, colors: ['Camel', 'Ivory', 'Charcoal'] },
+          { id: 7, name: 'Long Cardigan Style 7', image: longCardigan7, colors: ['Cream', 'Beige', 'Grey'] },
+          { id: 8, name: 'Long Cardigan Style 8', image: longCardigan8, colors: ['Pink', 'White', 'Navy'] },
+          { id: 9, name: 'Long Cardigan Style 9', image: longCardigan9, colors: ['Grey', 'Black', 'Brown'] }
+        ];
+      default:
+        return [
+          { id: 1, name: 'Classic Wool Turtleneck', image: product1, colors: ['Cream', 'Beige', 'Grey'] },
+          { id: 2, name: 'Premium Cashmere Blend', image: product2, colors: ['Pink', 'White', 'Navy'] },
+          { id: 3, name: 'Soft Merino Wool', image: product3, colors: ['Grey', 'Black', 'Brown'] },
+          { id: 4, name: 'Elegant Ribbed Design', image: product1, colors: ['Maroon', 'Purple', 'Green'] },
+          { id: 5, name: 'Cozy Winter Blend', image: product2, colors: ['Pink', 'Coral', 'Peach'] },
+          { id: 6, name: 'Luxurious Alpaca Wool', image: product3, colors: ['Camel', 'Ivory', 'Charcoal'] }
+        ];
     }
-  ];
+  };
+
+  const products = getProductsForCategory(categoryId || 'turtleneck');
 
   return (
     <div className="min-h-screen bg-background">
