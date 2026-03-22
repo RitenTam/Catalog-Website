@@ -15,6 +15,9 @@ import longCardigan6 from '@/assets/Long-Cardigan 6.jpg';
 import longCardigan7 from '@/assets/Long-Cardigan 7.jpg';
 import longCardigan8 from '@/assets/Long-Cardigan 8.jpg';
 import longCardigan9 from '@/assets/Long-Cardigan 9.jpg';
+import shortCardigan1 from '@/assets/IMG-20260322-WA0008.jpg';
+import shortCardigan2 from '@/assets/IMG-20260322-WA0009.jpg';
+import shortCardigan3 from '@/assets/IMG-20260322-WA0010.jpg';
 
 const ProductCategory = () => {
   const { categoryId } = useParams();
@@ -62,13 +65,16 @@ const ProductCategory = () => {
         return [
           { id: 1, name: 'Long Cardigan Style 1', image: longCardigan1, colors: ['Cream', 'Beige', 'Grey'] },
           { id: 2, name: 'Long Cardigan Style 2', image: longCardigan2, colors: ['Pink', 'White', 'Navy'] },
-          { id: 3, name: 'Long Cardigan Style 3', image: longCardigan3, colors: ['Grey', 'Black', 'Brown'] }
+          { id: 3, name: 'Long Cardigan Style 3', image: longCardigan3, colors: ['Grey', 'Black', 'Brown'] },
+          { id: 4, name: 'Long Cardigan Style 4', image: longCardigan4, colors: ['Maroon', 'Purple', 'Green'] },
+          { id: 5, name: 'Long Cardigan Style 5', image: longCardigan5, colors: ['Pink', 'Coral', 'Peach'] },
+          { id: 6, name: 'Long Cardigan Style 6', image: longCardigan6, colors: ['Camel', 'Ivory', 'Charcoal'] }
         ];
       case 'short-cardigans':
         return [
-          { id: 1, name: 'Short Cardigan Style 1', image: longCardigan4, colors: ['Maroon', 'Purple', 'Green'] },
-          { id: 2, name: 'Short Cardigan Style 2', image: longCardigan5, colors: ['Pink', 'Coral', 'Peach'] },
-          { id: 3, name: 'Short Cardigan Style 3', image: longCardigan6, colors: ['Camel', 'Ivory', 'Charcoal'] }
+          { id: 1, name: 'Short Cardigan Style 1', image: shortCardigan1, colors: ['Maroon', 'Purple', 'Green'] },
+          { id: 2, name: 'Short Cardigan Style 2', image: shortCardigan2, colors: ['Pink', 'Coral', 'Peach'] },
+          { id: 3, name: 'Short Cardigan Style 3', image: shortCardigan3, colors: ['Camel', 'Ivory', 'Charcoal'] }
         ];
       default:
         return [
