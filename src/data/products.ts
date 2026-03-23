@@ -11,6 +11,7 @@ export type Product = {
   features: string[];
   description: string;
   category?: string;
+  categoryKey?: string;
   image?: string;
 };
 
@@ -18,6 +19,8 @@ export const products: Product[] = [
   {
     id: 1,
     name: 'Classic Wool Turtleneck',
+    category: 'Turtleneck',
+    categoryKey: 'turtleneck',
     images: [product1, product2, product3],
     colors: [
       { name: 'Cream', hex: '#F5F5DC' },
@@ -35,12 +38,13 @@ export const products: Product[] = [
       'Made in India with ethical practices'
     ],
     description: 'Experience ultimate comfort and elegance with our Classic Wool Turtleneck. Crafted from the finest merino wool, this sweater offers exceptional warmth and softness while maintaining a sophisticated silhouette perfect for any occasion.',
-    category: 'Turtleneck',
     image: product1
   },
   {
     id: 2,
     name: 'Premium Cashmere Blend',
+    category: 'Cardigan',
+    categoryKey: 'cardigan',
     images: [product2, product3, product1],
     colors: [
       { name: 'Pink', hex: '#FFC0CB' },
@@ -56,12 +60,13 @@ export const products: Product[] = [
       'Modern fit for everyday wear'
     ],
     description: 'Our Premium Cashmere Blend sweater combines heavenly softness with refined style. Made from a premium blend of cashmere and wool, it provides a breathable warmth while maintaining a polished finish.',
-    category: 'Cardigan',
     image: product2
   },
   {
     id: 3,
     name: 'Soft Merino Wool',
+    category: 'Pullover',
+    categoryKey: 'pullover',
     images: [product3, product1, product2],
     colors: [
       { name: 'Grey', hex: '#808080' },
@@ -76,7 +81,48 @@ export const products: Product[] = [
       'Classic fit with modern details'
     ],
     description: 'Soft Merino Wool sweater is an everyday essential with natural insulation and breathable comfort. Perfect for layering in cooler weather or wearing on its own for a clean look.',
-    category: 'Pullover',
+    image: product3
+  },
+  {
+    id: 4,
+    name: 'Long Cardigan Style 1',
+    category: 'Long Cardigan',
+    categoryKey: 'long-cardigans',
+    images: [product2, product3, product1],
+    colors: [
+      { name: 'Camel', hex: '#C19A6B' },
+      { name: 'Ivory', hex: '#FFFFF0' },
+      { name: 'Charcoal', hex: '#36454F' }
+    ],
+    sizes: ['XS', 'S', 'M', 'L', 'XL', 'XXL'],
+    features: [
+      'Long-line warm fit',
+      'Soft knit fabric',
+      'Functional side pockets',
+      'Versatile layering piece'
+    ],
+    description: 'Long Cardigan Style 1 offers cozy warmth and elegant length for cooler days. Perfect for pairing with jeans or dresses.',
+    image: product2
+  },
+  {
+    id: 5,
+    name: 'Short Cardigan Style 1',
+    category: 'Short Cardigan',
+    categoryKey: 'short-cardigans',
+    images: [product3, product1, product2],
+    colors: [
+      { name: 'Maroon', hex: '#800000' },
+      { name: 'Teal', hex: '#008080' },
+      { name: 'Cream', hex: '#FFFDD0' }
+    ],
+    sizes: ['XS', 'S', 'M', 'L', 'XL', 'XXL'],
+    features: [
+      'Cropped flattering fit',
+      'Lightweight cozy yarn',
+      'Easy on/off button front',
+      'Fall-to-spring styling'
+    ],
+    description: 'Short Cardigan Style 1 is a versatile layering item with polished finish. The perfect lightweight knit for transitional weather.',
     image: product3
   }
 ];
@@ -86,7 +132,17 @@ export function getProductById(id: number) {
 }
 
 export function getProductsByCategory(categoryKey: string) {
-  return products.filter((item) =>
-    item.category?.toLowerCase().includes(categoryKey.toLowerCase())
-  );
+  const slug = categoryKey?.toLowerCase().trim();
+  if (!slug) return products;
+
+  return products.filter((item) => {
+    const key = item.categoryKey?.toLowerCase().trim() || '';
+    const category = item.category?.toLowerCase().trim() || '';
+
+    if (key === slug) return true;
+    if (slug === 'cardigan' && category.includes('cardigan')) return true;
+    if (slug === 'turtleneck' && category.includes('turtleneck')) return true;
+
+    return category.includes(slug) || key.includes(slug);
+  });
 }
