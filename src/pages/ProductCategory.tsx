@@ -7,6 +7,7 @@ import { getProductsByCategory, products as allProducts } from '@/data/products'
 
 const ProductCategory = () => {
   const { categoryId } = useParams();
+  const normalizedCategoryId = categoryId?.toLowerCase().trim().replace(/\s+/g, '-') || '';
 
   const categoryData = {
     turtleneck: {
@@ -43,12 +44,13 @@ const ProductCategory = () => {
     }
   };
 
-  const currentCategory = categoryData[categoryId as keyof typeof categoryData] || categoryData.turtleneck;
+  const currentCategory = categoryData[normalizedCategoryId as keyof typeof categoryData] || categoryData.turtleneck;
 
-  const productsFromCategory = categoryId
-    ? getProductsByCategory(categoryId)
+  const productsFromCategory = normalizedCategoryId
+    ? getProductsByCategory(normalizedCategoryId)
     : allProducts;
-  const products = productsFromCategory.length ? productsFromCategory : allProducts;
+  const products = productsFromCategory.length ? productsFromCategory : [];
+  const isEmpty = !productsFromCategory.length;
 
   return (
     <div className="min-h-screen bg-background">
@@ -80,44 +82,58 @@ const ProductCategory = () => {
         {/* Products Grid */}
         <section className="py-16">
           <div className="container mx-auto px-4">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {products.map((product) => (
-                <Card key={product.id} className="group overflow-hidden bg-card hover:shadow-xl transition-all duration-300">
-                  <div className="relative overflow-hidden">
-                    <img
-                      src={product.image}
-                      alt={product.name}
-                      className="w-full h-80 object-cover transition-transform duration-300 group-hover:scale-105"
-                    />
-                  </div>
-                  
-                  <CardContent className="p-6">
-                    <h3 className="text-xl font-semibold text-foreground mb-3">
-                      {product.name}
-                    </h3>
-                    
-                    <div className="mb-4">
-                      <span className="text-sm text-muted-foreground block mb-2">Available Colors:</span>
-                      <div className="flex gap-2">
-                        {product.colors.map((color) => (
-                          <span key={color} className="text-xs bg-secondary text-secondary-foreground px-2 py-1 rounded-full">
-                            {color}
-                          </span>
-                        ))}
+            {isEmpty ? (
+              <div className="text-center py-32">
+                <h2 className="text-2xl font-semibold text-foreground mb-3">No products found</h2>
+                <p className="text-muted-foreground mb-6">Try selecting another category or explore all products.</p>
+                <Link to="/products">
+                  <Button variant="outline">Back to Collections</Button>
+                </Link>
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {products.map((product) => (
+                  <Link
+                    key={product.id}
+                    to={`/product/${product.id}`}
+                    className="group block"
+                  >
+                    <Card className="overflow-hidden bg-card hover:shadow-xl transition-all duration-300">
+                      <div className="relative overflow-hidden">
+                        <img
+                          src={product.image}
+                          alt={product.name}
+                          className="w-full h-80 object-cover transition-transform duration-300 group-hover:scale-105"
+                        />
                       </div>
-                    </div>
 
-                    <div className="flex items-center justify-center">
-                      <Link to={`/product/${product.id}`}>
-                        <Button className="w-full">
-                          View Details
-                        </Button>
-                      </Link>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
+                      <CardContent className="p-6">
+                        <h3 className="text-xl font-semibold text-foreground mb-3">
+                          {product.name}
+                        </h3>
+                        
+                        <div className="mb-4">
+                          <span className="text-sm text-muted-foreground block mb-2">Available Colors:</span>
+                          <div className="flex gap-2">
+                            {product.colors.map((color) => (
+                              <span key={color.name} className="text-xs bg-secondary text-secondary-foreground px-2 py-1 rounded-full">
+                                {color.name}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+
+                        <div className="flex items-center justify-center">
+                          <Button className="w-full" variant="secondary">
+                            View Details
+                          </Button>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </Link>
+                ))}
+              </div>
+            )}
           </div>
         </section>
       </main>

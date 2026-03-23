@@ -124,6 +124,66 @@ export const products: Product[] = [
     ],
     description: 'Short Cardigan Style 1 is a versatile layering item with polished finish. The perfect lightweight knit for transitional weather.',
     image: product3
+  },
+  {
+    id: 6,
+    name: 'Long Cardigan Style 2',
+    category: 'Long Cardigan',
+    categoryKey: 'long-cardigans',
+    images: [product1, product2, product3],
+    colors: [
+      { name: 'Olive', hex: '#808000' },
+      { name: 'Smoke', hex: '#778899' }
+    ],
+    sizes: ['XS', 'S', 'M', 'L', 'XL', 'XXL'],
+    features: [
+      'Soft brushed knit',
+      'Deep front pockets',
+      'Open-front design',
+      'Relaxed drape'
+    ],
+    description: 'Long Cardigan Style 2 is a comfortable, statement-making layer built for all-day softness and effortless pairing with both dresses and denim.',
+    image: product1
+  },
+  {
+    id: 7,
+    name: 'Short Cardigan Style 2',
+    category: 'Short Cardigan',
+    categoryKey: 'short-cardigans',
+    images: [product2, product3, product1],
+    colors: [
+      { name: 'Blush', hex: '#FFDAB9' },
+      { name: 'Navy', hex: '#001F3F' }
+    ],
+    sizes: ['XS', 'S', 'M', 'L', 'XL', 'XXL'],
+    features: [
+      'Button-up front',
+      'Soft cashmere blend feel',
+      'Ribbed waistband',
+      'Cropped silhouette'
+    ],
+    description: 'Short Cardigan Style 2 has a polished, modern cut that works for office layering and casual weekend outfits. Excellent with high-waist bottoms.',
+    image: product2
+  },
+  {
+    id: 8,
+    name: 'Long Cardigan Style 3',
+    category: 'Long Cardigan',
+    categoryKey: 'long-cardigans',
+    images: [product3, product1, product2],
+    colors: [
+      { name: 'Sand', hex: '#C2B280' },
+      { name: 'Pearl', hex: '#F8F8FF' }
+    ],
+    sizes: ['XS', 'S', 'M', 'L', 'XL', 'XXL'],
+    features: [
+      'Textured weave',
+      'Mid-calf coverage',
+      'Soft shawl collar',
+      'Heavyweight cozy knit'
+    ],
+    description: 'Long Cardigan Style 3 brings bold texture and extra warmth with its full length, perfect for cooler climates and stylish layering needs.',
+    image: product3
   }
 ];
 

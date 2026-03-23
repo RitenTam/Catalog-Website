@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -10,21 +10,41 @@ import { getProductById } from '@/data/products';
 
 const ProductDetails = () => {
   const { productId } = useParams();
+  const navigate = useNavigate();
   const [selectedColor, setSelectedColor] = useState<string>('');
   const [selectedSize, setSelectedSize] = useState<string>('');
   const [quantity, setQuantity] = useState<number | string>(1);
 
   const productIdValue = Number(productId);
-  const product = getProductById(productIdValue) || getProductById(1);
+  const product = getProductById(productIdValue);
 
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   useEffect(() => {
-    if (!product) return;
+    if (!product) {
+      // if product invalid, redirect to collection page
+      navigate('/products', { replace: true });
+      return;
+    }
+
     setSelectedColor(product.colors[0]?.name || '');
     setSelectedSize(product.sizes[0] || '');
     setCurrentImageIndex(0);
-  }, [product]);
+  }, [product, navigate]);
+
+  if (!product) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center p-8">
+        <div className="text-center">
+          <h2 className="text-2xl font-semibold text-foreground mb-2">Product not found</h2>
+          <p className="text-muted-foreground mb-6">We could not find that product at the moment.</p>
+          <Link to="/products">
+            <Button>Back to Collections</Button>
+          </Link>
+        </div>
+      </div>
+    );
+  }
 
   const handleQuantityChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const val = e.target.value;
@@ -64,11 +84,14 @@ const ProductDetails = () => {
                 Collections
               </Link>
               <span className="mx-2 text-muted-foreground">/</span>
-              <Link to="/products/turtleneck" className="text-muted-foreground hover:text-primary transition-colors">
-                Turtleneck Sweaters
+              <Link
+                to={product?.categoryKey ? `/products/${product.categoryKey}` : '/products'}
+                className="text-muted-foreground hover:text-primary transition-colors"
+              >
+                {product?.category || 'Category'}
               </Link>
               <span className="mx-2 text-muted-foreground">/</span>
-              <span className="text-primary font-medium">{product.name}</span>
+              <span className="text-primary font-medium">{product?.name || 'Unknown Product'}</span>
             </nav>
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
