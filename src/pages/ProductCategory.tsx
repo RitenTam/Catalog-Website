@@ -3,21 +3,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import product1 from '@/assets/product-1.jpg';
-import product2 from '@/assets/product-2.jpg';
-import product3 from '@/assets/product-3.jpg';
-import longCardigan1 from '@/assets/Long-Cardigan 1.jpg';
-import longCardigan2 from '@/assets/Long-Cardigan 2.jpg';
-import longCardigan3 from '@/assets/Long-Cardigan 3.jpg';
-import longCardigan4 from '@/assets/Long-Cardigan 4.jpg';
-import longCardigan5 from '@/assets/Long-Cardigan 5.jpg';
-import longCardigan6 from '@/assets/Long-Cardigan 6.jpg';
-import longCardigan7 from '@/assets/Long-Cardigan 7.jpg';
-import longCardigan8 from '@/assets/Long-Cardigan 8.jpg';
-import longCardigan9 from '@/assets/Long-Cardigan 9.jpg';
-import shortCardigan1 from '@/assets/IMG-20260322-WA0008.jpg';
-import shortCardigan2 from '@/assets/IMG-20260322-WA0009.jpg';
-import shortCardigan3 from '@/assets/IMG-20260322-WA0010.jpg';
+import { getProductsByCategory, products as allProducts } from '@/data/products';
 
 const ProductCategory = () => {
   const { categoryId } = useParams();
@@ -59,33 +45,10 @@ const ProductCategory = () => {
 
   const currentCategory = categoryData[categoryId as keyof typeof categoryData] || categoryData.turtleneck;
 
-  const getProductsForCategory = (categoryId: string) => {
-    switch (categoryId) {
-      case 'long-cardigans':
-        return [
-          { id: 1, name: 'Long Cardigan Style 1', image: longCardigan1, colors: ['Cream', 'Beige', 'Grey'] },
-          { id: 2, name: 'Long Cardigan Style 2', image: longCardigan2, colors: ['Pink', 'White', 'Navy'] },
-          { id: 3, name: 'Long Cardigan Style 3', image: longCardigan3, colors: ['Grey', 'Black', 'Brown'] },
-          { id: 4, name: 'Long Cardigan Style 4', image: longCardigan4, colors: ['Maroon', 'Purple', 'Green'] },
-          { id: 5, name: 'Long Cardigan Style 5', image: longCardigan5, colors: ['Pink', 'Coral', 'Peach'] },
-          { id: 6, name: 'Long Cardigan Style 6', image: longCardigan6, colors: ['Camel', 'Ivory', 'Charcoal'] }
-        ];
-      case 'short-cardigans':
-        return [
-          { id: 1, name: 'Short Cardigan Style 1', image: shortCardigan1, colors: ['Maroon', 'Purple', 'Green'] },
-          { id: 2, name: 'Short Cardigan Style 2', image: shortCardigan2, colors: ['Pink', 'Coral', 'Peach'] },
-          { id: 3, name: 'Short Cardigan Style 3', image: shortCardigan3, colors: ['Camel', 'Ivory', 'Charcoal'] }
-        ];
-      default:
-        return [
-          { id: 1, name: 'Classic Wool Turtleneck', image: product1, colors: ['Cream', 'Beige', 'Grey'] },
-          { id: 2, name: 'Premium Cashmere Blend', image: product2, colors: ['Pink', 'White', 'Navy'] },
-          { id: 3, name: 'Soft Merino Wool', image: product3, colors: ['Grey', 'Black', 'Brown'] }
-        ];
-    }
-  };
-
-  const products = getProductsForCategory(categoryId || 'turtleneck');
+  const productsFromCategory = categoryId
+    ? getProductsByCategory(categoryId)
+    : allProducts;
+  const products = productsFromCategory.length ? productsFromCategory : allProducts;
 
   return (
     <div className="min-h-screen bg-background">

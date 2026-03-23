@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
@@ -6,39 +6,25 @@ import { Input } from '@/components/ui/input';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { MessageCircle, Minus, Plus } from 'lucide-react';
-import product1 from '@/assets/product-1.jpg';
-import product2 from '@/assets/product-2.jpg';
-import product3 from '@/assets/product-3.jpg';
+import { getProductById } from '@/data/products';
 
 const ProductDetails = () => {
   const { productId } = useParams();
-  const [selectedColor, setSelectedColor] = useState('Cream');
-  const [selectedSize, setSelectedSize] = useState('M');
+  const [selectedColor, setSelectedColor] = useState<string>('');
+  const [selectedSize, setSelectedSize] = useState<string>('');
   const [quantity, setQuantity] = useState<number | string>(1);
 
-  const product = {
-    id: productId,
-    name: 'Classic Wool Turtleneck',
-    images: [product1, product2, product3],
-    colors: [
-      { name: 'Cream', hex: '#F5F5DC' },
-      { name: 'Beige', hex: '#F5F5DC' },
-      { name: 'Grey', hex: '#808080' },
-      { name: 'Pink', hex: '#FFC0CB' }
-    ],
-    sizes: ['XS', 'S', 'M', 'L', 'XL', 'XXL'],
-    features: [
-      '100% Premium Merino Wool',
-      'Hand-knitted with care',
-      'Machine washable (delicate cycle)',
-      'Ribbed collar and cuffs',
-      'Regular fit for comfortable wear',
-      'Made in India with ethical practices'
-    ],
-    description: 'Experience ultimate comfort and elegance with our Classic Wool Turtleneck. Crafted from the finest merino wool, this sweater offers exceptional warmth and softness while maintaining a sophisticated silhouette perfect for any occasion.'
-  };
+  const productIdValue = Number(productId);
+  const product = getProductById(productIdValue) || getProductById(1);
 
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  useEffect(() => {
+    if (!product) return;
+    setSelectedColor(product.colors[0]?.name || '');
+    setSelectedSize(product.sizes[0] || '');
+    setCurrentImageIndex(0);
+  }, [product]);
 
   const handleQuantityChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const val = e.target.value;

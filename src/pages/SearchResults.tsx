@@ -5,67 +5,31 @@ import { Card, CardContent } from '@/components/ui/card';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { MessageCircle, Search } from 'lucide-react';
-import product1 from '@/assets/product-1.jpg';
-import product2 from '@/assets/product-2.jpg';
-import product3 from '@/assets/product-3.jpg';
+import { products as allProducts } from '@/data/products';
 
 const SearchResults = () => {
   const [searchParams] = useSearchParams();
   const query = searchParams.get('q') || '';
   const [results, setResults] = useState<any[]>([]);
 
-  // Sample products database
-  const allProducts = [
-    {
-      id: 1,
-      name: "Elegant Cream Turtleneck",
-      image: product1,
-      category: "Turtleneck",
-      keywords: ["cream", "turtleneck", "elegant", "white", "beige"]
-    },
-    {
-      id: 2,
-      name: "Classic Beige Cardigan",
-      image: product2,
-      category: "Cardigan",
-      keywords: ["beige", "cardigan", "classic", "brown", "tan"]
-    },
-    {
-      id: 3,
-      name: "Soft Grey V-Neck",
-      image: product3,
-      category: "V-Neck",
-      keywords: ["grey", "gray", "v-neck", "soft", "vneck"]
-    },
-    {
-      id: 4,
-      name: "Cozy Maroon Pullover",
-      image: product1,
-      category: "Pullover",
-      keywords: ["maroon", "red", "pullover", "cozy", "warm"]
-    },
-    {
-      id: 5,
-      name: "Warm Pink Knit Sweater",
-      image: product2,
-      category: "Knit",
-      keywords: ["pink", "knit", "warm", "sweater", "rose"]
-    },
-    {
-      id: 6,
-      name: "Premium Wool Blend Cardigan",
-      image: product3,
-      category: "Premium",
-      keywords: ["wool", "premium", "cardigan", "blend", "luxury"]
-    }
-  ];
+  const allProductsWithKeywords = allProducts.map((product) => ({
+    ...product,
+    image: product.image,
+    category: product.category ?? '',
+    name: product.name,
+    keywords: [
+      product.name.toLowerCase(),
+      product.category?.toLowerCase() ?? '',
+      ...(product.name.toLowerCase().split(' ') || [])
+    ]
+  }));
 
   useEffect(() => {
     if (query) {
-      const searchResults = allProducts.filter(product => 
+      const searchResults = allProductsWithKeywords.filter(product =>
         product.name.toLowerCase().includes(query.toLowerCase()) ||
         product.category.toLowerCase().includes(query.toLowerCase()) ||
-        product.keywords.some(keyword => keyword.toLowerCase().includes(query.toLowerCase()))
+        product.keywords.some(keyword => keyword.includes(query.toLowerCase()))
       );
       setResults(searchResults);
     } else {
