@@ -3,23 +3,22 @@ import { Button } from '@/components/ui/button';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { Link } from 'react-router-dom';
-import product1 from '@/assets/product-1.jpg';
-import product2 from '@/assets/product-2.jpg';
-import product3 from '@/assets/product-3.jpg';
+import longCardiganImage from '@/assets/LongCardiganPhotos/Long Cardigan (1).jpg';
+import shortCardiganImage from '@/assets/ShortCardiganPhotos/Short Cardigan (1).jpg';
 
 const Products = () => {
   const categories = [
     {
       id: 'long-cardigans',
       name: 'Long Cardigans',
-      image: product2,
+      image: longCardiganImage,
       description: 'Elegant long cardigans for a cozy, statement look',
       itemCount: 18
     },
     {
       id: 'short-cardigans',
       name: 'Short Cardigans',
-      image: product3,
+      image: shortCardiganImage,
       description: 'Stylish short cardigans for everyday layering',
       itemCount: 12
     }
