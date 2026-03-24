@@ -76,7 +76,9 @@ const Index = () => {
       
       <main role="main">
         <HeroCarousel />
-        <BestSellers />
+        <div className="content-container">
+          <BestSellers />
+        </div>
       </main>
       
       <Footer />
