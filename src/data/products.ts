@@ -1,6 +1,12 @@
 import product1 from '@/assets/product-1.jpg';
 import product2 from '@/assets/product-2.jpg';
 import product3 from '@/assets/product-3.jpg';
+import shortCardigan1 from '@/assets/Short Cardigan photos/sweater-hero-1.jpg';
+import shortCardigan2 from '@/assets/Short Cardigan photos/sweater-hero-2.jpg';
+import shortCardigan3 from '@/assets/Short Cardigan photos/sweater-hero-3.jpg';
+import longCardigan1 from '@/assets/Long Cardigan Photos/Long Cardigan (1).jpg';
+import longCardigan2 from '@/assets/Long Cardigan Photos/Long Cardigan (2).jpg';
+import longCardigan3 from '@/assets/Long Cardigan Photos/Long Cardigan (3).jpg';
 
 export type Product = {
   id: number;
@@ -88,7 +94,7 @@ export const products: Product[] = [
     name: 'Long Cardigan Style 1',
     category: 'Long Cardigan',
     categoryKey: 'long-cardigans',
-    images: [product2, product3, product1],
+    images: [longCardigan1, longCardigan2, longCardigan3],
     colors: [
       { name: 'Camel', hex: '#C19A6B' },
       { name: 'Ivory', hex: '#FFFFF0' },
@@ -102,14 +108,14 @@ export const products: Product[] = [
       'Versatile layering piece'
     ],
     description: 'Long Cardigan Style 1 offers cozy warmth and elegant length for cooler days. Perfect for pairing with jeans or dresses.',
-    image: product2
+    image: longCardigan1
   },
   {
     id: 5,
     name: 'Short Cardigan Style 1',
     category: 'Short Cardigan',
     categoryKey: 'short-cardigans',
-    images: [product3, product1, product2],
+    images: [shortCardigan1, shortCardigan2, shortCardigan3],
     colors: [
       { name: 'Maroon', hex: '#800000' },
       { name: 'Teal', hex: '#008080' },
@@ -123,14 +129,14 @@ export const products: Product[] = [
       'Fall-to-spring styling'
     ],
     description: 'Short Cardigan Style 1 is a versatile layering item with polished finish. The perfect lightweight knit for transitional weather.',
-    image: product3
+    image: shortCardigan1
   },
   {
     id: 6,
     name: 'Long Cardigan Style 2',
     category: 'Long Cardigan',
     categoryKey: 'long-cardigans',
-    images: [product1, product2, product3],
+    images: [longCardigan1, longCardigan2, longCardigan3],
     colors: [
       { name: 'Olive', hex: '#808000' },
       { name: 'Smoke', hex: '#778899' }
@@ -143,14 +149,14 @@ export const products: Product[] = [
       'Relaxed drape'
     ],
     description: 'Long Cardigan Style 2 is a comfortable, statement-making layer built for all-day softness and effortless pairing with both dresses and denim.',
-    image: product1
+    image: longCardigan1
   },
   {
     id: 7,
     name: 'Short Cardigan Style 2',
     category: 'Short Cardigan',
     categoryKey: 'short-cardigans',
-    images: [product2, product3, product1],
+    images: [shortCardigan1, shortCardigan2, shortCardigan3],
     colors: [
       { name: 'Blush', hex: '#FFDAB9' },
       { name: 'Navy', hex: '#001F3F' }
@@ -163,14 +169,14 @@ export const products: Product[] = [
       'Cropped silhouette'
     ],
     description: 'Short Cardigan Style 2 has a polished, modern cut that works for office layering and casual weekend outfits. Excellent with high-waist bottoms.',
-    image: product2
+    image: shortCardigan1
   },
   {
     id: 8,
     name: 'Long Cardigan Style 3',
     category: 'Long Cardigan',
     categoryKey: 'long-cardigans',
-    images: [product3, product1, product2],
+    images: [longCardigan1, longCardigan2, longCardigan3],
     colors: [
       { name: 'Sand', hex: '#C2B280' },
       { name: 'Pearl', hex: '#F8F8FF' }
@@ -183,7 +189,7 @@ export const products: Product[] = [
       'Heavyweight cozy knit'
     ],
     description: 'Long Cardigan Style 3 brings bold texture and extra warmth with its full length, perfect for cooler climates and stylish layering needs.',
-    image: product3
+    image: longCardigan1
   }
 ];
 
