@@ -1,12 +1,12 @@
 import product1 from '@/assets/product-1.jpg';
 import product2 from '@/assets/product-2.jpg';
 import product3 from '@/assets/product-3.jpg';
-import shortCardigan1 from '@/assets/Short Cardigan photos/sweater-hero-1.jpg';
-import shortCardigan2 from '@/assets/Short Cardigan photos/sweater-hero-2.jpg';
-import shortCardigan3 from '@/assets/Short Cardigan photos/sweater-hero-3.jpg';
-import longCardigan1 from '@/assets/Long Cardigan Photos/Long Cardigan (1).jpg';
-import longCardigan2 from '@/assets/Long Cardigan Photos/Long Cardigan (2).jpg';
-import longCardigan3 from '@/assets/Long Cardigan Photos/Long Cardigan (3).jpg';
+import shortCardigan1 from '@/assets/ShortCardiganPhotos/sweater-hero-1.jpg';
+import shortCardigan2 from '@/assets/ShortCardiganPhotos/sweater-hero-2.jpg';
+import shortCardigan3 from '@/assets/ShortCardiganPhotos/sweater-hero-3.jpg';
+import longCardigan1 from '@/assets/LongCardiganPhotos/Long Cardigan (1).jpg';
+import longCardigan2 from '@/assets/LongCardiganPhotos/Long Cardigan (2).jpg';
+import longCardigan3 from '@/assets/LongCardiganPhotos/Long Cardigan (3).jpg';
 
 export type Product = {
   id: number;
