@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import heroImage1 from '@/assets/LongCardiganPhotos/Long Cardigan (1).jpg';
-import heroImage2 from '@/assets/ShortCardiganPhotos/Short Cardigan (1).jpg';
-import heroImage3 from '@/assets/LongCardiganPhotos/Long Cardigan (2).jpg';
+import heroImage1 from '@/assets/hero-generated-1.svg';
+import heroImage2 from '@/assets/hero-generated-2.svg';
+import heroImage3 from '@/assets/hero-generated-3.svg';
 
 const HeroCarousel = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -65,7 +65,7 @@ const HeroCarousel = () => {
                 alt={slide.title}
                 className="w-full h-full object-cover"
               />
-              <div className="absolute inset-0 bg-black/30"></div>
+              <div className="absolute inset-0 bg-black/22"></div>
               
               {/* Content Overlay */}
               <div className="absolute inset-0 flex items-center justify-center">
