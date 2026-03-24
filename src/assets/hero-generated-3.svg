@@ -1,39 +1,49 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080" fill="none">
   <defs>
-    <linearGradient id="bg3" x1="180" y1="80" x2="1760" y2="1060" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#FBF2E8" />
-      <stop offset="0.5" stop-color="#E6CDC1" />
-      <stop offset="1" stop-color="#7B2F3F" />
+    <linearGradient id="bg3" x1="170" y1="80" x2="1760" y2="1040" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FAF1E6" />
+      <stop offset="0.52" stop-color="#E4CABD" />
+      <stop offset="1" stop-color="#753140" />
     </linearGradient>
-    <radialGradient id="glow3" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(980 460) rotate(90) scale(640 920)">
-      <stop stop-color="#FFF8F1" stop-opacity="0.65" />
+    <radialGradient id="spot3" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(760 300) rotate(28) scale(980 620)">
+      <stop stop-color="#FFF8F1" stop-opacity="0.84" />
       <stop offset="1" stop-color="#FFF8F1" stop-opacity="0" />
     </radialGradient>
-    <linearGradient id="fabric3" x1="0" y1="260" x2="0" y2="930" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#6E2B39" />
-      <stop offset="1" stop-color="#3F1A23" />
+    <linearGradient id="hair3" x1="0" y1="0" x2="0" y2="1">
+      <stop stop-color="#45251F" />
+      <stop offset="1" stop-color="#241411" />
+    </linearGradient>
+    <linearGradient id="cardigan3" x1="0" y1="0" x2="0" y2="1">
+      <stop stop-color="#6A2B3A" />
+      <stop offset="1" stop-color="#3A1822" />
     </linearGradient>
   </defs>
 
   <rect width="1920" height="1080" fill="url(#bg3)" />
-  <rect width="1920" height="1080" fill="url(#glow3)" />
+  <rect width="1920" height="1080" fill="url(#spot3)" />
 
-  <g opacity="0.16" fill="#F6E6D8">
-    <circle cx="320" cy="880" r="300" />
-    <circle cx="1600" cy="260" r="250" />
+  <g opacity="0.18" fill="#F6E4D6">
+    <ellipse cx="340" cy="820" rx="320" ry="220" />
+    <ellipse cx="1630" cy="250" rx="250" ry="190" />
   </g>
 
-  <g transform="translate(720 130)">
-    <circle cx="240" cy="110" r="64" fill="#F2D7C7" />
-    <path d="M80 256C80 176 145 112 225 112H255C335 112 400 176 400 256V798H80V256Z" fill="url(#fabric3)" />
-    <path d="M80 320H400V408H80V320Z" fill="#F5E4D5" fill-opacity="0.5" />
-    <path d="M224 160L148 280L220 352L212 798H180L188 344L122 272L192 154L224 160Z" fill="#F9EBDD" fill-opacity="0.82" />
-    <path d="M256 160L332 280L260 352L268 798H300L292 344L358 272L288 154L256 160Z" fill="#F9EBDD" fill-opacity="0.82" />
-    <rect x="225" y="332" width="30" height="380" rx="15" fill="#A15A68" fill-opacity="0.52" />
+  <g transform="translate(530 150)">
+    <path d="M354 102C420 106 474 152 484 216L490 262H286L296 194C306 134 346 100 404 100L354 102Z" fill="url(#hair3)" />
+    <ellipse cx="386" cy="178" rx="60" ry="66" fill="#F0D4C2" transform="rotate(-10 386 178)" />
+    <ellipse cx="368" cy="174" rx="5" ry="4" fill="#694038" />
+    <path d="M378 214C392 224 410 222 420 210" stroke="#B87872" stroke-width="4" stroke-linecap="round" />
+    <path d="M274 304C284 236 344 186 412 186H456C526 186 586 240 592 310L620 620H286L274 304Z" fill="url(#cardigan3)" />
+    <path d="M420 204L364 334L416 398L406 620H372L380 390L332 328L388 200L420 204Z" fill="#FAEDE1" fill-opacity="0.9" />
+    <path d="M454 204L516 332L466 398L478 620H512L500 390L548 326L488 200L454 204Z" fill="#FAEDE1" fill-opacity="0.86" />
+    <path d="M286 366L180 470L210 510L326 404L286 366Z" fill="#5C2735" />
+    <path d="M596 372L692 490L658 520L558 406L596 372Z" fill="#5C2735" />
+    <rect x="418" y="340" width="40" height="220" rx="20" fill="#8B4A58" fill-opacity="0.52" />
+    <path d="M338 620H544L692 830H462L338 620Z" fill="#2B1A22" fill-opacity="0.7" />
+    <path d="M462 830H730L826 980H560L462 830Z" fill="#23161C" fill-opacity="0.68" />
   </g>
 
-  <g opacity="0.14" stroke="#5B2832" stroke-width="2.2">
-    <path d="M-40 240C260 120 500 330 820 210C1160 80 1460 260 1980 140" />
-    <path d="M-40 760C260 640 500 850 820 730C1160 600 1460 780 1980 660" />
+  <g opacity="0.13" stroke="#5C2D38" stroke-width="2.3">
+    <path d="M-30 180C260 300 520 120 850 250C1160 360 1440 160 1970 300" />
+    <path d="M-40 890C260 740 520 950 850 800C1160 660 1440 860 1960 720" />
   </g>
 </svg>

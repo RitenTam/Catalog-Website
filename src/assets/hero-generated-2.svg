@@ -1,46 +1,48 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080" fill="none">
   <defs>
-    <linearGradient id="bg2" x1="142" y1="138" x2="1800" y2="980" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#F4E8DA" />
-      <stop offset="0.45" stop-color="#D9BBA8" />
-      <stop offset="1" stop-color="#A45B64" />
+    <linearGradient id="bg2" x1="160" y1="100" x2="1790" y2="1010" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F8EFE4" />
+      <stop offset="0.5" stop-color="#E7D0BF" />
+      <stop offset="1" stop-color="#96515D" />
     </linearGradient>
-    <radialGradient id="light2" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(520 220) rotate(50) scale(780 540)">
-      <stop stop-color="#FFF8F1" stop-opacity="0.85" />
-      <stop offset="1" stop-color="#FFF8F1" stop-opacity="0" />
+    <radialGradient id="light2" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(520 320) rotate(24) scale(940 620)">
+      <stop stop-color="#FFF6EE" stop-opacity="0.8" />
+      <stop offset="1" stop-color="#FFF6EE" stop-opacity="0" />
     </radialGradient>
-    <linearGradient id="cardi2" x1="0" y1="250" x2="0" y2="930" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#C88586" />
-      <stop offset="1" stop-color="#87404E" />
+    <linearGradient id="hair2" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#3A241F" />
+      <stop offset="1" stop-color="#1D1210" />
+    </linearGradient>
+    <linearGradient id="cardigan2" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#C4878E" />
+      <stop offset="1" stop-color="#83424E" />
     </linearGradient>
   </defs>
 
   <rect width="1920" height="1080" fill="url(#bg2)" />
   <rect width="1920" height="1080" fill="url(#light2)" />
 
-  <g opacity="0.2" fill="#F7EADD">
-    <path d="M0 900L380 710L790 920L460 1080H0V900Z" />
-    <path d="M1920 190L1570 360L1210 120L1470 0H1920V190Z" />
+  <g opacity="0.2" fill="#F6E7D9">
+    <circle cx="260" cy="250" r="170" />
+    <circle cx="1660" cy="860" r="270" />
   </g>
 
-  <g transform="translate(770 130)">
-    <circle cx="190" cy="110" r="64" fill="#F2D8C8" />
-    <path d="M72 224C72 165 120 118 179 118H201C260 118 308 165 308 224V740H72V224Z" fill="url(#cardi2)" />
-    <path d="M72 258H308V342H72V258Z" fill="#F6E7DA" fill-opacity="0.6" />
-    <path d="M54 296C40 304 28 319 24 336L0 456L54 474L78 374L54 296Z" fill="#9D5461" />
-    <path d="M326 296C340 304 352 319 356 336L380 456L326 474L302 374L326 296Z" fill="#9D5461" />
-    <rect x="168" y="340" width="44" height="400" rx="22" fill="#7B3243" fill-opacity="0.45" />
-    <g fill="#F6E7DA" fill-opacity="0.78">
-      <circle cx="190" cy="298" r="8" />
-      <circle cx="190" cy="352" r="8" />
-      <circle cx="190" cy="406" r="8" />
-      <circle cx="190" cy="460" r="8" />
-      <circle cx="190" cy="514" r="8" />
-    </g>
+  <g transform="translate(1020 140)">
+    <path d="M180 92C236 96 282 140 294 194L308 262L132 262L150 178C158 126 206 88 260 92H180Z" fill="url(#hair2)" />
+    <ellipse cx="220" cy="176" rx="56" ry="64" fill="#F1D5C4" transform="rotate(12 220 176)" />
+    <ellipse cx="238" cy="172" rx="5" ry="4" fill="#654038" />
+    <path d="M212 210C226 222 246 220 257 206" stroke="#B97873" stroke-width="4" stroke-linecap="round" />
+    <path d="M116 290C126 226 180 178 244 178H280C346 178 402 229 408 296L438 700H150L116 290Z" fill="url(#cardigan2)" />
+    <path d="M250 196L214 342L272 396L260 700H224L236 384L180 336L214 190L250 196Z" fill="#FAECE0" fill-opacity="0.9" />
+    <path d="M286 196L338 334L286 396L300 700H334L318 384L370 330L322 190L286 196Z" fill="#FAECE0" fill-opacity="0.88" />
+    <path d="M150 354L64 468L102 500L190 394L150 354Z" fill="#A45B67" />
+    <path d="M408 358L488 482L448 508L370 394L408 358Z" fill="#A45B67" />
+    <rect x="252" y="352" width="42" height="254" rx="21" fill="#7A3441" fill-opacity="0.5" />
+    <path d="M208 700H336L354 980H166L208 700Z" fill="#2F1E26" fill-opacity="0.66" />
   </g>
 
-  <g opacity="0.12" stroke="#6E3A45" stroke-width="2.4">
-    <path d="M160 130C390 260 640 90 900 200C1140 290 1410 150 1740 270" />
-    <path d="M120 980C380 840 650 1020 920 890C1210 760 1470 930 1800 820" />
+  <g opacity="0.13" stroke="#6B3A44" stroke-width="2.3">
+    <path d="M20 160C280 300 560 90 860 228C1120 350 1420 150 1880 286" />
+    <path d="M40 920C300 790 580 1010 880 860C1140 730 1440 900 1880 760" />
   </g>
 </svg>
