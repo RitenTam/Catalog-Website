@@ -2,7 +2,6 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { Card, CardContent } from '@/components/ui/card';
 import { Users, Heart, Award, Leaf } from 'lucide-react';
-import KnitwearCraftsmanship from '@/components/KnitwearCraftsmanship';
 
 const AboutUs = () => {
   return (
@@ -139,9 +138,6 @@ const AboutUs = () => {
             </div>
           </div>
         </section>
-
-        {/* Craftsmanship Section */}
-        <KnitwearCraftsmanship />
 
         {/* Contact CTA */}
         <section className="py-16 bg-brand-cream/30">
