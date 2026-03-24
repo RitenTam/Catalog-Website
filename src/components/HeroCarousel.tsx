@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import heroGenerated1 from '@/assets/hero-generated-1.svg';
-import heroGenerated2 from '@/assets/hero-generated-2.svg';
-import heroGenerated3 from '@/assets/hero-generated-3.svg';
+import generatedCardigan1 from '@/assets/carousel-generated-1.svg';
+import generatedCardigan2 from '@/assets/carousel-generated-2.svg';
+import generatedCardigan3 from '@/assets/carousel-generated-3.svg';
 
 const HeroCarousel = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -11,27 +11,27 @@ const HeroCarousel = () => {
   const slides = [
     {
       id: 1,
-      image: heroGenerated1,
+      image: generatedCardigan1,
       imagePosition: 'center center',
-      title: "Classic Cable Knit Charm",
-      subtitle: "Statement cardigans for refined winter wardrobes",
-      description: "Rich textures, tailored silhouettes, and effortless warmth for everyday elegance"
+      title: "Soft Floral Knit",
+      subtitle: "Generated hero concept in your sample style",
+      description: "Flat-lay cardigan visual with warm boutique backdrop and detailed knit texture"
     },
     {
       id: 2,
-      image: heroGenerated2,
+      image: generatedCardigan2,
       imagePosition: 'center center',
-      title: "Modern Plaid Layering",
-      subtitle: "Polished knits with minimalist structure",
-      description: "Comfort-first cardigans designed to move from work hours to evening outings"
+      title: "Classic Dot Motif",
+      subtitle: "Generated hero concept in your sample style",
+      description: "A clean sample-like composition focused on patterned knitwear and product-first framing"
     },
     {
       id: 3,
-      image: heroGenerated3,
+      image: generatedCardigan3,
       imagePosition: 'center center',
-      title: "Soft Neutral Essentials",
-      subtitle: "Everyday luxury in timeless tones",
-      description: "Lightweight warmth and premium knits for a confident, graceful look"
+      title: "Cable Knit Essential",
+      subtitle: "Generated hero concept in your sample style",
+      description: "Textured cardigan artwork created for hero usage without relying on product folder photos"
     }
   ];
 
