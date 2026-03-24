@@ -1,9 +1,6 @@
 import { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import heroImage1 from '@/assets/hero-generated-1.svg';
-import heroImage2 from '@/assets/hero-generated-2.svg';
-import heroImage3 from '@/assets/hero-generated-3.svg';
 
 const HeroCarousel = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -11,21 +8,24 @@ const HeroCarousel = () => {
   const slides = [
     {
       id: 1,
-      image: heroImage1,
+      image: 'https://images.unsplash.com/photo-1485462537746-965f33f7f6a7?auto=format&fit=crop&w=2200&q=80',
+      imagePosition: 'center 28%',
       title: "Elegance in Every Thread",
       subtitle: "Discover our premium collection of woolen sweaters",
       description: "Crafted with the finest materials for women who value comfort and style"
     },
     {
       id: 2,
-      image: heroImage2,
+      image: 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=2200&q=80',
+      imagePosition: 'center 24%',
       title: "Warmth Meets Style",
       subtitle: "Cozy cardigans for every season",
       description: "Timeless designs that complement your sophisticated lifestyle"
     },
     {
       id: 3,
-      image: heroImage3,
+      image: 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=2200&q=80',
+      imagePosition: 'center 30%',
       title: "Premium Knitwear Collection",
       subtitle: "Soft, luxurious, and beautifully crafted",
       description: "Experience the perfect blend of comfort and elegance"
@@ -64,8 +64,9 @@ const HeroCarousel = () => {
                 src={slide.image}
                 alt={slide.title}
                 className="w-full h-full object-cover"
+                style={{ objectPosition: slide.imagePosition }}
               />
-              <div className="absolute inset-0 bg-black/22"></div>
+              <div className="absolute inset-0 bg-black/38"></div>
               
               {/* Content Overlay */}
               <div className="absolute inset-0 flex items-center justify-center">
