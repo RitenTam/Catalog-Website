@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import heroImage1 from '@/assets/sweater-hero-1.jpg';
-import heroImage2 from '@/assets/sweater-hero-2.jpg';
-import heroImage3 from '@/assets/sweater-hero-3.jpg';
+import heroImage1 from '@/assets/LongCardiganPhotos/Long Cardigan (1).jpg';
+import heroImage2 from '@/assets/ShortCardiganPhotos/Short Cardigan (1).jpg';
+import heroImage3 from '@/assets/LongCardiganPhotos/Long Cardigan (2).jpg';
 
 const HeroCarousel = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
