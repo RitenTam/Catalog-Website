@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import generatedCardigan1 from '@/assets/carousel-generated-1.svg';
-import generatedCardigan2 from '@/assets/carousel-generated-2.svg';
-import generatedCardigan3 from '@/assets/carousel-generated-3.svg';
+import carouselImage1 from '@/assets/Carousel Image/Carousel Img 1.png';
+import carouselImage2 from '@/assets/Carousel Image/Carousel Img 2.png';
+import carouselImage3 from '@/assets/Carousel Image/Carousel Img 3.png';
 
 const HeroCarousel = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -11,7 +11,7 @@ const HeroCarousel = () => {
   const slides = [
     {
       id: 1,
-      image: generatedCardigan1,
+      image: carouselImage1,
       imagePosition: 'center center',
       title: "Soft Floral Knit",
       subtitle: "Generated hero concept in your sample style",
@@ -19,7 +19,7 @@ const HeroCarousel = () => {
     },
     {
       id: 2,
-      image: generatedCardigan2,
+      image: carouselImage2,
       imagePosition: 'center center',
       title: "Classic Dot Motif",
       subtitle: "Generated hero concept in your sample style",
@@ -27,7 +27,7 @@ const HeroCarousel = () => {
     },
     {
       id: 3,
-      image: generatedCardigan3,
+      image: carouselImage3,
       imagePosition: 'center center',
       title: "Cable Knit Essential",
       subtitle: "Generated hero concept in your sample style",
