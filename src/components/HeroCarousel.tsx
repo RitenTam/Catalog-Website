@@ -1,6 +1,9 @@
 import { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import heroGenerated1 from '@/assets/hero-generated-1.svg';
+import heroGenerated2 from '@/assets/hero-generated-2.svg';
+import heroGenerated3 from '@/assets/hero-generated-3.svg';
 
 const HeroCarousel = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -8,27 +11,27 @@ const HeroCarousel = () => {
   const slides = [
     {
       id: 1,
-      image: 'https://images.unsplash.com/photo-1485462537746-965f33f7f6a7?auto=format&fit=crop&w=2200&q=80',
-      imagePosition: 'center 28%',
-      title: "Elegance in Every Thread",
-      subtitle: "Discover our premium collection of woolen sweaters",
-      description: "Crafted with the finest materials for women who value comfort and style"
+      image: heroGenerated1,
+      imagePosition: 'center center',
+      title: "Classic Cable Knit Charm",
+      subtitle: "Statement cardigans for refined winter wardrobes",
+      description: "Rich textures, tailored silhouettes, and effortless warmth for everyday elegance"
     },
     {
       id: 2,
-      image: 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=2200&q=80',
-      imagePosition: 'center 24%',
-      title: "Warmth Meets Style",
-      subtitle: "Cozy cardigans for every season",
-      description: "Timeless designs that complement your sophisticated lifestyle"
+      image: heroGenerated2,
+      imagePosition: 'center center',
+      title: "Modern Plaid Layering",
+      subtitle: "Polished knits with minimalist structure",
+      description: "Comfort-first cardigans designed to move from work hours to evening outings"
     },
     {
       id: 3,
-      image: 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=2200&q=80',
-      imagePosition: 'center 30%',
-      title: "Premium Knitwear Collection",
-      subtitle: "Soft, luxurious, and beautifully crafted",
-      description: "Experience the perfect blend of comfort and elegance"
+      image: heroGenerated3,
+      imagePosition: 'center center',
+      title: "Soft Neutral Essentials",
+      subtitle: "Everyday luxury in timeless tones",
+      description: "Lightweight warmth and premium knits for a confident, graceful look"
     }
   ];
 
