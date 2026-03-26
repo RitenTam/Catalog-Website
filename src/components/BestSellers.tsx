@@ -1,11 +1,9 @@
-import { useState } from 'react';
 import { ChevronLeft, ChevronRight, MessageCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import { products as allProducts } from '@/data/products';
+import { products as allProducts, type Product } from '@/data/products';
 
 const BestSellers = () => {
-  const [currentIndex, setCurrentIndex] = useState(0);
   const products = allProducts.slice(0, 6);
 
   const scroll = (direction: 'left' | 'right') => {
@@ -19,7 +17,7 @@ const BestSellers = () => {
     }
   };
 
-  const handleWhatsAppInquiry = (product: any) => {
+  const handleWhatsAppInquiry = (product: Product) => {
     const message = `Hi, I'm interested in ${product.name}. Can you provide more details?`;
     const phoneNumber = '9779863651986';
     

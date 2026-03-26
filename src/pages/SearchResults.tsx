@@ -14,9 +14,7 @@ const SearchResults = () => {
 
   const allProductsWithKeywords = allProducts.map((product) => ({
     ...product,
-    image: product.image,
     category: product.category ?? '',
-    name: product.name,
     keywords: [
       product.name.toLowerCase(),
       product.category?.toLowerCase() ?? '',
