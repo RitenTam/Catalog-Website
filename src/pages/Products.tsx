@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { Link } from 'react-router-dom';
+import { getProductsByCategory } from '@/data/products';
 import longCardiganImage from '@/assets/LongCardiganPhotos/Long Cardigan (1).jpg';
 import shortCardiganImage from '@/assets/ShortCardiganPhotos/Short Cardigan (1).jpg';
 
@@ -12,17 +13,18 @@ const Products = () => {
       id: 'long-cardigans',
       name: 'Long Cardigans',
       image: longCardiganImage,
-      description: 'Elegant long cardigans for a cozy, statement look',
-      itemCount: 18
+      description: 'Elegant long cardigans for a cozy, statement look'
     },
     {
       id: 'short-cardigans',
       name: 'Short Cardigans',
       image: shortCardiganImage,
-      description: 'Stylish short cardigans for everyday layering',
-      itemCount: 12
+      description: 'Stylish short cardigans for everyday layering'
     }
-  ];
+  ].map((category) => ({
+    ...category,
+    itemCount: getProductsByCategory(category.id).length
+  }));
 
   return (
     <div className="min-h-screen bg-background">
@@ -73,7 +75,7 @@ const Products = () => {
                     </p>
                     <div className="flex items-center justify-between">
                       <span className="text-sm text-muted-foreground">
-                        {category.itemCount} items
+                        {category.itemCount} {category.itemCount === 1 ? 'item' : 'items'}
                       </span>
                       <Link to={`/products/${category.id}`}>
                         <Button variant="outline" size="sm">
