@@ -1,41 +1,50 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { MessageCircle, Search } from 'lucide-react';
-import { products as allProducts } from '@/data/products';
+import { products as allProducts, type Product } from '@/data/products';
+
+type SearchableProduct = Product & {
+  category: string;
+  keywords: string[];
+};
 
 const SearchResults = () => {
   const [searchParams] = useSearchParams();
   const query = searchParams.get('q') || '';
-  const [results, setResults] = useState<any[]>([]);
+  const [results, setResults] = useState<SearchableProduct[]>([]);
 
-  const allProductsWithKeywords = allProducts.map((product) => ({
-    ...product,
-    category: product.category ?? '',
-    keywords: [
-      product.name.toLowerCase(),
-      product.category?.toLowerCase() ?? '',
-      ...(product.name.toLowerCase().split(' ') || [])
-    ]
-  }));
+  const allProductsWithKeywords = useMemo<SearchableProduct[]>(
+    () =>
+      allProducts.map((product) => ({
+        ...product,
+        category: product.category ?? '',
+        keywords: [
+          product.name.toLowerCase(),
+          product.category?.toLowerCase() ?? '',
+          ...product.name.toLowerCase().split(' ')
+        ]
+      })),
+    []
+  );
 
   useEffect(() => {
     if (query) {
-      const searchResults = allProductsWithKeywords.filter(product =>
+      const searchResults = allProductsWithKeywords.filter((product) =>
         product.name.toLowerCase().includes(query.toLowerCase()) ||
         product.category.toLowerCase().includes(query.toLowerCase()) ||
-        product.keywords.some(keyword => keyword.includes(query.toLowerCase()))
+        product.keywords.some((keyword) => keyword.includes(query.toLowerCase()))
       );
       setResults(searchResults);
     } else {
       setResults([]);
     }
-  }, [query]);
+  }, [query, allProductsWithKeywords]);
 
-  const handleWhatsAppInquiry = (product: any) => {
+  const handleWhatsAppInquiry = (product: Product) => {
     const message = `Hi, I'm interested in the ${product.name}. Can you provide more details?`;
     const phoneNumber = '9779863651986';
     const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
