@@ -72,19 +72,19 @@ const HeroCarousel = () => {
               <div className="absolute inset-0 bg-black/38"></div>
               
               {/* Content Overlay */}
-              <div className="absolute inset-0 flex items-center">
-                <div className="mx-auto w-full max-w-7xl px-4">
-                  <div className="text-center text-white md:text-left">
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="mx-auto w-full max-w-4xl px-4">
+                  <div className="text-center text-white">
                     <h1 className="text-4xl md:text-6xl font-bold mb-4 fade-in-up">
                       {slide.title}
                     </h1>
                     <h2 className="text-xl md:text-2xl font-medium mb-6 slide-in-right">
                       {slide.subtitle}
                     </h2>
-                    <p className="text-lg md:text-xl mb-8 max-w-2xl md:mx-0 mx-auto bounce-in">
+                    <p className="text-lg md:text-xl mb-8 max-w-2xl mx-auto bounce-in">
                       {slide.description}
                     </p>
-                    <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start bounce-in">
+                    <div className="flex flex-col sm:flex-row gap-4 justify-center bounce-in">
                       <Button className="btn-hero" onClick={() => window.location.href = '/products'}>
                         View Collection
                       </Button>
