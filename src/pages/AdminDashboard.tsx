@@ -719,7 +719,7 @@ const AdminDashboard = () => {
                       type="email"
                       value={email}
                       onChange={(event) => setEmail(event.target.value)}
-                      placeholder="ritendratam404@gmail.com"
+                      placeholder="Enter email"
                     />
                   </div>
                   <div className="space-y-2">
