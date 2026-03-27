@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Search, Menu, X } from 'lucide-react';
+import { Search, Menu, X, Lock } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 
 const Header = () => {
@@ -60,6 +60,14 @@ const Header = () => {
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
             </form>
+            <a
+              href="/admin/login"
+              aria-label="Admin login"
+              title="Admin login"
+              className="inline-flex h-10 w-10 items-center justify-center rounded-md border border-input bg-background text-foreground transition-colors hover:text-primary"
+            >
+              <Lock className="h-4 w-4" />
+            </a>
           </div>
 
           {/* Mobile Menu Toggle */}
@@ -92,10 +100,18 @@ const Header = () => {
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
               <Input
                 placeholder="Search sweaters..."
-                className="search-input pl-10 w-full"
+                className="search-input pl-10 pr-12 w-full"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
+              <a
+                href="/admin/login"
+                aria-label="Admin login"
+                title="Admin login"
+                className="absolute right-1 top-1/2 inline-flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-md text-muted-foreground transition-colors hover:text-primary"
+              >
+                <Lock className="h-4 w-4" />
+              </a>
             </form>
           </div>
         )}
