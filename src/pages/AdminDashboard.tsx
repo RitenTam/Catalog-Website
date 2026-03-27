@@ -15,6 +15,12 @@ import {
   Upload,
 } from "lucide-react";
 import { products as catalogProducts } from "@/data/products";
+import {
+  clearAdminAuthenticated,
+  getAdminAuthenticated,
+  setAdminAuthenticated,
+  validateAdminCredentials,
+} from "@/data/adminAuth";
 import { useToast } from "@/hooks/use-toast";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -87,7 +93,6 @@ type ProductForm = {
 };
 
 const PRODUCT_STORAGE_KEY = "catalog-admin-products";
-const AUTH_STORAGE_KEY = "catalog-admin-auth";
 const SIZE_OPTIONS = ["XS", "S", "M", "L", "XL", "XXL"];
 
 const seedProducts: AdminProduct[] = catalogProducts.map((item, index) => ({
@@ -132,7 +137,7 @@ const AdminDashboard = () => {
   const [loading, setLoading] = useState(true);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoggingIn, setIsLoggingIn] = useState(false);
 
@@ -159,7 +164,6 @@ const AdminDashboard = () => {
 
   useEffect(() => {
     const savedProducts = localStorage.getItem(PRODUCT_STORAGE_KEY);
-    const savedAuth = localStorage.getItem(AUTH_STORAGE_KEY);
     if (savedProducts) {
       try {
         const parsed = JSON.parse(savedProducts) as AdminProduct[];
@@ -171,7 +175,7 @@ const AdminDashboard = () => {
       setAdminProducts(seedProducts);
     }
 
-    setIsAuthenticated(savedAuth === "true");
+    setIsAuthenticated(getAdminAuthenticated());
 
     const timeout = setTimeout(() => {
       setLoading(false);
@@ -451,10 +455,10 @@ const AdminDashboard = () => {
   const onLogin = async (event: React.FormEvent) => {
     event.preventDefault();
 
-    if (!username.trim() || !password.trim()) {
+    if (!email.trim() || !password.trim()) {
       toast({
         title: "Missing credentials",
-        description: "Enter username and password.",
+        description: "Enter email and password.",
         variant: "destructive",
       });
       return;
@@ -463,16 +467,16 @@ const AdminDashboard = () => {
     setIsLoggingIn(true);
     await new Promise((resolve) => setTimeout(resolve, 550));
 
-    if (username.trim() === "admin" && password === "admin123") {
+    if (validateAdminCredentials(email, password)) {
       setIsAuthenticated(true);
-      localStorage.setItem(AUTH_STORAGE_KEY, "true");
+      setAdminAuthenticated(true);
       toast({ title: "Welcome back", description: "You are now signed in." });
-      setUsername("");
+      setEmail("");
       setPassword("");
     } else {
       toast({
         title: "Invalid login",
-        description: "Use admin / admin123 for demo access.",
+        description: "Check your admin email or password.",
         variant: "destructive",
       });
     }
@@ -481,7 +485,7 @@ const AdminDashboard = () => {
 
   const logout = () => {
     setIsAuthenticated(false);
-    localStorage.removeItem(AUTH_STORAGE_KEY);
+    clearAdminAuthenticated();
     toast({ title: "Signed out", description: "Admin session ended." });
   };
 
@@ -700,7 +704,7 @@ const AdminDashboard = () => {
                 Secure sign-in gives you access to product management, inventory updates, media previews, and real-time catalog controls.
               </p>
               <div className="mt-6 rounded-xl bg-secondary/60 p-4 text-sm text-muted-foreground">
-                Demo credentials: <strong className="text-foreground">admin / admin123</strong>
+                Admin credentials: <strong className="text-foreground">ritendratam404@gmail.com / admin@123</strong>
               </div>
             </div>
 
@@ -712,12 +716,13 @@ const AdminDashboard = () => {
               <CardContent>
                 <form className="space-y-4" onSubmit={onLogin}>
                   <div className="space-y-2">
-                    <Label htmlFor="admin-username">Username</Label>
+                    <Label htmlFor="admin-email">Email</Label>
                     <Input
-                      id="admin-username"
-                      value={username}
-                      onChange={(event) => setUsername(event.target.value)}
-                      placeholder="Enter username"
+                      id="admin-email"
+                      type="email"
+                      value={email}
+                      onChange={(event) => setEmail(event.target.value)}
+                      placeholder="ritendratam404@gmail.com"
                     />
                   </div>
                   <div className="space-y-2">
