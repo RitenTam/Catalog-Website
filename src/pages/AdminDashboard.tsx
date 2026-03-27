@@ -703,9 +703,6 @@ const AdminDashboard = () => {
               <p className="mt-3 text-muted-foreground">
                 Secure sign-in gives you access to product management, inventory updates, media previews, and real-time catalog controls.
               </p>
-              <div className="mt-6 rounded-xl bg-secondary/60 p-4 text-sm text-muted-foreground">
-                Admin credentials: <strong className="text-foreground">ritendratam404@gmail.com / admin@123</strong>
-              </div>
             </div>
 
             <Card className="border-border/70 bg-card/90">
