@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import { Link } from "react-router-dom";
 import {
   BarChart3,
   Box,
@@ -695,6 +696,16 @@ const AdminDashboard = () => {
   if (!isAuthenticated) {
     return (
       <div className="min-h-screen bg-[radial-gradient(circle_at_top_left,hsl(var(--brand-cream))_0%,hsl(var(--background))_45%,hsl(var(--secondary))_100%)] px-4 py-12">
+        <header className="mx-auto mb-6 flex w-full max-w-5xl items-center justify-between rounded-2xl border border-border/70 bg-background/90 px-4 py-3 shadow-sm backdrop-blur md:px-6">
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-primary">Catalog Website</p>
+            <h2 className="text-sm font-medium text-foreground md:text-base">Admin Login</h2>
+          </div>
+          <Button asChild variant="outline" size="sm" className="gap-2">
+            <Link to="/">Go to Home</Link>
+          </Button>
+        </header>
+
         <div className="mx-auto max-w-5xl rounded-3xl border border-border/70 bg-background/90 p-6 shadow-xl backdrop-blur md:p-10">
           <div className="grid items-center gap-8 md:grid-cols-2">
             <div>
