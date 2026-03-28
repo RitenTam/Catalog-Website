@@ -6,6 +6,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { MessageCircle, Search } from 'lucide-react';
 import { products as allProducts, type Product } from '@/data/products';
+import { getOrCreateAnalyticsSessionId, recordWhatsAppClick } from '@/data/whatsappAnalytics';
 
 type SearchableProduct = Product & {
   category: string;
@@ -45,6 +46,14 @@ const SearchResults = () => {
   }, [query, allProductsWithKeywords]);
 
   const handleWhatsAppInquiry = (product: Product) => {
+    recordWhatsAppClick({
+      productId: product.id,
+      productName: product.name,
+      productCategory: product.category,
+      source: 'search-results',
+      sessionId: getOrCreateAnalyticsSessionId(),
+    });
+
     const message = `Hi, I'm interested in the ${product.name}. Can you provide more details?`;
     const phoneNumber = '9779863651986';
     const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;

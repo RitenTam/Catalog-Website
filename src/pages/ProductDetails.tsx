@@ -7,6 +7,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { MessageCircle, Minus, Plus } from 'lucide-react';
 import { getProductById } from '@/data/products';
+import { getOrCreateAnalyticsSessionId, recordWhatsAppClick } from '@/data/whatsappAnalytics';
 
 const ProductDetails = () => {
   const { productId } = useParams();
@@ -65,6 +66,14 @@ const ProductDetails = () => {
   };
 
   const handleWhatsAppInquiry = () => {
+    recordWhatsAppClick({
+      productId: product.id,
+      productName: product.name,
+      productCategory: product.category,
+      source: 'product-details',
+      sessionId: getOrCreateAnalyticsSessionId(),
+    });
+
     const message = `Hi, I'm interested in the ${product.name} in ${selectedColor} color, size ${selectedSize}, quantity ${quantity}. Can you provide more details?`;
     const phoneNumber = '9779863651986';
     const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;

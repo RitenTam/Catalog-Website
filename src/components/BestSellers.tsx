@@ -2,6 +2,7 @@ import { ChevronLeft, ChevronRight, MessageCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { products as allProducts, type Product } from '@/data/products';
+import { getOrCreateAnalyticsSessionId, recordWhatsAppClick } from '@/data/whatsappAnalytics';
 
 const BestSellers = () => {
   const products = allProducts.slice(0, 6);
@@ -18,6 +19,14 @@ const BestSellers = () => {
   };
 
   const handleWhatsAppInquiry = (product: Product) => {
+    recordWhatsAppClick({
+      productId: product.id,
+      productName: product.name,
+      productCategory: product.category,
+      source: 'best-sellers',
+      sessionId: getOrCreateAnalyticsSessionId(),
+    });
+
     const message = `Hi, I'm interested in ${product.name}. Can you provide more details?`;
     const phoneNumber = '9779863651986';
     

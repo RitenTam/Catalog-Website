@@ -15,6 +15,21 @@ import {
   Trash2,
   Upload,
 } from "lucide-react";
+import {
+  Bar,
+  BarChart,
+  CartesianGrid,
+  Cell,
+  Legend,
+  Line,
+  LineChart,
+  Pie,
+  PieChart,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis,
+} from "recharts";
 import { products as catalogProducts } from "@/data/products";
 import {
   clearAdminAuthenticated,
@@ -22,6 +37,14 @@ import {
   setAdminAuthenticated,
   validateAdminCredentials,
 } from "@/data/adminAuth";
+import {
+  type AnalyticsDateFilter,
+  exportAnalyticsEventsToCsv,
+  getFilteredAnalyticsEvents,
+  getWhatsAppAnalyticsSnapshot,
+  markWhatsAppInquiryConverted,
+  subscribeToWhatsAppAnalytics,
+} from "@/data/whatsappAnalytics";
 import { useToast } from "@/hooks/use-toast";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -57,7 +80,7 @@ import {
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 
-type AdminSection = "dashboard" | "products" | "add-product" | "settings";
+type AdminSection = "dashboard" | "analytics" | "products" | "add-product" | "settings";
 
 type SortOption =
   | "newest"
@@ -95,6 +118,7 @@ type ProductForm = {
 
 const PRODUCT_STORAGE_KEY = "catalog-admin-products";
 const SIZE_OPTIONS = ["XS", "S", "M", "L", "XL", "XXL"];
+const PIE_COLORS = ["#0f766e", "#f59e0b", "#2563eb", "#ef4444", "#8b5cf6", "#14b8a6", "#f97316"];
 
 const seedProducts: AdminProduct[] = catalogProducts.map((item, index) => ({
   id: item.id,
@@ -159,6 +183,11 @@ const AdminDashboard = () => {
   const [pendingDelete, setPendingDelete] = useState<AdminProduct | null>(null);
   const [isDeleting, setIsDeleting] = useState(false);
 
+  const [analyticsDateFilter, setAnalyticsDateFilter] = useState<AnalyticsDateFilter>("weekly");
+  const [analyticsCategoryFilter, setAnalyticsCategoryFilter] = useState("all");
+  const [analyticsTopLimit, setAnalyticsTopLimit] = useState<"5" | "10">("5");
+  const [analyticsVersion, setAnalyticsVersion] = useState(0);
+
   useEffect(() => {
     document.title = "Admin Dashboard | ChaurasiyaHojiyari";
   }, []);
@@ -190,6 +219,14 @@ const AdminDashboard = () => {
       localStorage.setItem(PRODUCT_STORAGE_KEY, JSON.stringify(adminProducts));
     }
   }, [adminProducts]);
+
+  useEffect(() => {
+    const unsubscribe = subscribeToWhatsAppAnalytics(() => {
+      setAnalyticsVersion((current) => current + 1);
+    });
+
+    return unsubscribe;
+  }, []);
 
   const categories = useMemo(() => {
     const values = Array.from(new Set(adminProducts.map((item) => item.category)));
@@ -247,12 +284,66 @@ const AdminDashboard = () => {
     [adminProducts]
   );
 
+  const analyticsSnapshot = useMemo(
+    () =>
+      getWhatsAppAnalyticsSnapshot({
+        dateFilter: analyticsDateFilter,
+        categoryFilter: analyticsCategoryFilter,
+        topLimit: Number(analyticsTopLimit),
+      }),
+    [analyticsCategoryFilter, analyticsDateFilter, analyticsTopLimit, analyticsVersion]
+  );
+
+  const analyticsEventsForExport = useMemo(
+    () =>
+      getFilteredAnalyticsEvents({
+        dateFilter: analyticsDateFilter,
+        categoryFilter: analyticsCategoryFilter,
+      }),
+    [analyticsCategoryFilter, analyticsDateFilter, analyticsVersion]
+  );
+
+  const conversionPieData = useMemo(
+    () => [
+      { name: "Converted", value: analyticsSnapshot.totalConverted },
+      { name: "Pending", value: Math.max(0, analyticsSnapshot.totalClicks - analyticsSnapshot.totalConverted) },
+    ],
+    [analyticsSnapshot.totalClicks, analyticsSnapshot.totalConverted]
+  );
+
   const navItems: { key: AdminSection; label: string; icon: typeof LayoutDashboard }[] = [
     { key: "dashboard", label: "Dashboard", icon: LayoutDashboard },
+    { key: "analytics", label: "Analytics", icon: BarChart3 },
     { key: "products", label: "Products", icon: Box },
     { key: "add-product", label: "Add Product", icon: PackagePlus },
     { key: "settings", label: "Settings", icon: Settings },
   ];
+
+  const exportAnalyticsCsv = () => {
+    const csv = exportAnalyticsEventsToCsv(analyticsEventsForExport);
+    const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+    const anchor = document.createElement("a");
+    anchor.href = url;
+    anchor.download = `whatsapp-analytics-${analyticsDateFilter}-${new Date().toISOString().slice(0, 10)}.csv`;
+    document.body.appendChild(anchor);
+    anchor.click();
+    document.body.removeChild(anchor);
+    URL.revokeObjectURL(url);
+
+    toast({
+      title: "Analytics exported",
+      description: `Downloaded ${analyticsEventsForExport.length} inquiry records as CSV.`,
+    });
+  };
+
+  const markConverted = (eventId: string) => {
+    markWhatsAppInquiryConverted(eventId);
+    toast({
+      title: "Marked as converted",
+      description: "This WhatsApp inquiry now counts toward conversion metrics.",
+    });
+  };
 
   const onSizeToggle = (size: string) => {
     setProductForm((prev) => {
@@ -850,6 +941,274 @@ const AdminDashboard = () => {
                           <Badge variant="destructive">{product.stock} left</Badge>
                         </div>
                       ))}
+                    </div>
+                  )}
+                </CardContent>
+              </Card>
+            </section>
+          )}
+
+          {activeSection === "analytics" && (
+            <section className="space-y-6">
+              <Card>
+                <CardHeader>
+                  <CardTitle className="text-xl">WhatsApp Order Analytics</CardTitle>
+                  <CardDescription>
+                    Track inquiry clicks, top-performing products, and conversion outcomes from WhatsApp redirection.
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="grid gap-3 md:grid-cols-[1fr_1fr_1fr_auto]">
+                    <Select value={analyticsDateFilter} onValueChange={(value) => setAnalyticsDateFilter(value as AnalyticsDateFilter)}>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Date range" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="daily">Daily (last 24h)</SelectItem>
+                        <SelectItem value="weekly">Weekly (last 7 days)</SelectItem>
+                        <SelectItem value="monthly">Monthly (last 30 days)</SelectItem>
+                      </SelectContent>
+                    </Select>
+
+                    <Select value={analyticsCategoryFilter} onValueChange={setAnalyticsCategoryFilter}>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Product category" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="all">All Categories</SelectItem>
+                        {categories.map((category) => (
+                          <SelectItem key={category} value={category}>
+                            {category}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+
+                    <Select value={analyticsTopLimit} onValueChange={(value) => setAnalyticsTopLimit(value as "5" | "10")}>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Top N products" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="5">Top 5</SelectItem>
+                        <SelectItem value="10">Top 10</SelectItem>
+                      </SelectContent>
+                    </Select>
+
+                    <Button variant="outline" onClick={exportAnalyticsCsv}>
+                      Export CSV
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+                <Card className="bg-background/90">
+                  <CardHeader className="pb-2">
+                    <CardDescription>Total WhatsApp Clicks</CardDescription>
+                    <CardTitle className="text-3xl">{analyticsSnapshot.totalClicks}</CardTitle>
+                  </CardHeader>
+                </Card>
+
+                <Card className="bg-background/90">
+                  <CardHeader className="pb-2">
+                    <CardDescription>Total Converted Orders</CardDescription>
+                    <CardTitle className="text-3xl">{analyticsSnapshot.totalConverted}</CardTitle>
+                  </CardHeader>
+                </Card>
+
+                <Card className="bg-background/90">
+                  <CardHeader className="pb-2">
+                    <CardDescription>Overall Conversion Rate</CardDescription>
+                    <CardTitle className="text-3xl">{analyticsSnapshot.overallConversionRate}%</CardTitle>
+                  </CardHeader>
+                </Card>
+
+                <Card className="bg-background/90">
+                  <CardHeader className="pb-2">
+                    <CardDescription>Most Clicked Product</CardDescription>
+                    <CardTitle className="text-base leading-tight">
+                      {analyticsSnapshot.mostClickedProduct?.productName || "No data"}
+                    </CardTitle>
+                  </CardHeader>
+                </Card>
+              </div>
+
+              <div className="grid gap-4 xl:grid-cols-2">
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Top Performing Products</CardTitle>
+                    <CardDescription>Ranked by WhatsApp click volume.</CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    {analyticsSnapshot.topProducts.length === 0 ? (
+                      <p className="text-sm text-muted-foreground">No WhatsApp click activity yet for this filter.</p>
+                    ) : (
+                      <div className="h-72">
+                        <ResponsiveContainer width="100%" height="100%">
+                          <BarChart data={analyticsSnapshot.topProducts} margin={{ top: 10, right: 10, left: -10, bottom: 0 }}>
+                            <CartesianGrid strokeDasharray="3 3" />
+                            <XAxis dataKey="productName" tick={{ fontSize: 11 }} interval={0} angle={-15} textAnchor="end" height={55} />
+                            <YAxis allowDecimals={false} />
+                            <Tooltip />
+                            <Bar dataKey="clicks" name="Clicks" fill="#0f766e" radius={[6, 6, 0, 0]} />
+                          </BarChart>
+                        </ResponsiveContainer>
+                      </div>
+                    )}
+                  </CardContent>
+                </Card>
+
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Conversion Split</CardTitle>
+                    <CardDescription>Converted orders vs pending inquiries.</CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    {analyticsSnapshot.totalClicks === 0 ? (
+                      <p className="text-sm text-muted-foreground">No conversion data available yet.</p>
+                    ) : (
+                      <div className="h-72">
+                        <ResponsiveContainer width="100%" height="100%">
+                          <PieChart>
+                            <Pie data={conversionPieData} dataKey="value" nameKey="name" innerRadius={60} outerRadius={95}>
+                              {conversionPieData.map((entry, index) => (
+                                <Cell key={`${entry.name}-${index}`} fill={PIE_COLORS[index % PIE_COLORS.length]} />
+                              ))}
+                            </Pie>
+                            <Tooltip />
+                            <Legend />
+                          </PieChart>
+                        </ResponsiveContainer>
+                      </div>
+                    )}
+                  </CardContent>
+                </Card>
+              </div>
+
+              <Card>
+                <CardHeader>
+                  <CardTitle>Trend</CardTitle>
+                  <CardDescription>Inquiry and conversion trend over the selected period.</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  {analyticsSnapshot.trendPoints.length === 0 ? (
+                    <p className="text-sm text-muted-foreground">No trend points for the selected filters.</p>
+                  ) : (
+                    <div className="h-72">
+                      <ResponsiveContainer width="100%" height="100%">
+                        <LineChart data={analyticsSnapshot.trendPoints} margin={{ top: 5, right: 12, left: 0, bottom: 0 }}>
+                          <CartesianGrid strokeDasharray="3 3" />
+                          <XAxis dataKey="label" />
+                          <YAxis allowDecimals={false} />
+                          <Tooltip />
+                          <Legend />
+                          <Line type="monotone" dataKey="clicks" stroke="#2563eb" strokeWidth={2} dot={{ r: 3 }} name="Clicks" />
+                          <Line type="monotone" dataKey="converted" stroke="#16a34a" strokeWidth={2} dot={{ r: 3 }} name="Converted" />
+                        </LineChart>
+                      </ResponsiveContainer>
+                    </div>
+                  )}
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader>
+                  <CardTitle>Product-Wise Conversion</CardTitle>
+                  <CardDescription>
+                    Conversion Rate = (Converted Orders / Total Clicks) x 100. Best converting product: {" "}
+                    <span className="font-medium text-foreground">
+                      {analyticsSnapshot.bestConvertingProduct?.productName || "No data"}
+                    </span>
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  {analyticsSnapshot.clicksPerProduct.length === 0 ? (
+                    <p className="text-sm text-muted-foreground">No product-level analytics available yet.</p>
+                  ) : (
+                    <div className="rounded-xl border border-border/70">
+                      <Table>
+                        <TableHeader>
+                          <TableRow>
+                            <TableHead>Rank</TableHead>
+                            <TableHead>Product</TableHead>
+                            <TableHead>Clicks</TableHead>
+                            <TableHead>Converted</TableHead>
+                            <TableHead>Conversion Rate</TableHead>
+                          </TableRow>
+                        </TableHeader>
+                        <TableBody>
+                          {analyticsSnapshot.clicksPerProduct.slice(0, Number(analyticsTopLimit)).map((row, index) => (
+                            <TableRow key={row.productId}>
+                              <TableCell>#{index + 1}</TableCell>
+                              <TableCell>
+                                <div>
+                                  <p className="font-medium">{row.productName}</p>
+                                  <p className="text-xs text-muted-foreground">{row.productCategory}</p>
+                                </div>
+                              </TableCell>
+                              <TableCell>{row.clicks}</TableCell>
+                              <TableCell>{row.convertedOrders}</TableCell>
+                              <TableCell>{row.conversionRate}%</TableCell>
+                            </TableRow>
+                          ))}
+                        </TableBody>
+                      </Table>
+                    </div>
+                  )}
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader>
+                  <CardTitle>Recent WhatsApp Inquiries</CardTitle>
+                  <CardDescription>
+                    Mark inquiries as converted when a WhatsApp inquiry becomes a completed order.
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  {analyticsSnapshot.recentInquiries.length === 0 ? (
+                    <p className="text-sm text-muted-foreground">No recent inquiries to review.</p>
+                  ) : (
+                    <div className="rounded-xl border border-border/70">
+                      <Table>
+                        <TableHeader>
+                          <TableRow>
+                            <TableHead>Time</TableHead>
+                            <TableHead>Product</TableHead>
+                            <TableHead>Source</TableHead>
+                            <TableHead>Status</TableHead>
+                            <TableHead>Action</TableHead>
+                          </TableRow>
+                        </TableHeader>
+                        <TableBody>
+                          {analyticsSnapshot.recentInquiries.map((event) => (
+                            <TableRow key={event.id}>
+                              <TableCell>{new Date(event.timestamp).toLocaleString()}</TableCell>
+                              <TableCell>
+                                <div>
+                                  <p className="font-medium">{event.productName}</p>
+                                  <p className="text-xs text-muted-foreground">{event.productCategory}</p>
+                                </div>
+                              </TableCell>
+                              <TableCell>{event.source}</TableCell>
+                              <TableCell>
+                                <Badge variant={event.converted ? "default" : "secondary"}>
+                                  {event.converted ? "Converted" : "Pending"}
+                                </Badge>
+                              </TableCell>
+                              <TableCell>
+                                {event.converted ? (
+                                  <span className="text-xs text-muted-foreground">Completed</span>
+                                ) : (
+                                  <Button size="sm" variant="outline" onClick={() => markConverted(event.id)}>
+                                    Mark Converted
+                                  </Button>
+                                )}
+                              </TableCell>
+                            </TableRow>
+                          ))}
+                        </TableBody>
+                      </Table>
                     </div>
                   )}
                 </CardContent>
