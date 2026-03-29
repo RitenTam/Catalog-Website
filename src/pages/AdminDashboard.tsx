@@ -617,7 +617,7 @@ const AdminDashboard = () => {
     </div>
   );
 
-  const ProductFormFields = () => (
+  const renderProductFormFields = () => (
     <div className="grid gap-4">
       <div className="grid gap-2">
         <Label htmlFor="product-name">Product Name</Label>
@@ -1417,7 +1417,7 @@ const AdminDashboard = () => {
                   <CardDescription>Create a product with full details, image previews, and inventory level.</CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-6">
-                  <ProductFormFields />
+                  {renderProductFormFields()}
 
                   <div className="flex flex-wrap gap-3">
                     <Button onClick={() => saveProduct(true)} disabled={isSubmitting || isUploadingImages}>
@@ -1495,7 +1495,7 @@ const AdminDashboard = () => {
             </DialogDescription>
           </DialogHeader>
 
-          <ProductFormFields />
+          {renderProductFormFields()}
 
           <DialogFooter>
             <Button variant="outline" onClick={() => setIsFormDialogOpen(false)}>
