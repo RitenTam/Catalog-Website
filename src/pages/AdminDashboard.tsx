@@ -533,13 +533,16 @@ const AdminDashboard = () => {
     });
   };
 
-  const updateStock = (id: number, delta: number) => {
+  const updateStock = (id: number, rawValue: string) => {
+    if (!/^\d*$/.test(rawValue)) return;
+
+    const stock = rawValue === "" ? 0 : Number(rawValue);
     setAdminProducts((prev) =>
       prev.map((item) => {
         if (item.id !== id) return item;
         return {
           ...item,
-          stock: Math.max(0, item.stock + delta),
+          stock,
           updatedAt: new Date().toISOString(),
         };
       })
@@ -1328,15 +1331,15 @@ const AdminDashboard = () => {
                               <TableCell>{product.category}</TableCell>
                               <TableCell>₹{product.price.toLocaleString("en-IN")}</TableCell>
                               <TableCell>
-                                <div className="flex items-center gap-2">
-                                  <Button size="icon" variant="outline" onClick={() => updateStock(product.id, -1)}>
-                                    -
-                                  </Button>
-                                  <span className="min-w-8 text-center">{product.stock}</span>
-                                  <Button size="icon" variant="outline" onClick={() => updateStock(product.id, 1)}>
-                                    +
-                                  </Button>
-                                </div>
+                                <Input
+                                  type="number"
+                                  min="0"
+                                  inputMode="numeric"
+                                  className="h-9 w-24"
+                                  value={product.stock}
+                                  onChange={(event) => updateStock(product.id, event.target.value)}
+                                  aria-label={`Stock for ${product.name}`}
+                                />
                               </TableCell>
                               <TableCell>
                                 <div className="flex gap-2">
@@ -1378,12 +1381,18 @@ const AdminDashboard = () => {
                             </div>
 
                             <div className="flex items-center gap-2">
-                              <Button size="sm" variant="outline" onClick={() => updateStock(product.id, -1)}>
-                                -1
-                              </Button>
-                              <Button size="sm" variant="outline" onClick={() => updateStock(product.id, 1)}>
-                                +1
-                              </Button>
+                              <Label htmlFor={`stock-${product.id}`} className="text-xs text-muted-foreground">
+                                Stock
+                              </Label>
+                              <Input
+                                id={`stock-${product.id}`}
+                                type="number"
+                                min="0"
+                                inputMode="numeric"
+                                className="h-9 w-24"
+                                value={product.stock}
+                                onChange={(event) => updateStock(product.id, event.target.value)}
+                              />
                             </div>
 
                             <div className="flex gap-2">
