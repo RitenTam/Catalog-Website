@@ -3,28 +3,46 @@ import { Button } from '@/components/ui/button';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { Link } from 'react-router-dom';
-import { getProductsByCategory } from '@/data/products';
+import { getCatalogProducts } from '@/data/products';
 import longCardiganImage from '@/assets/LongCardiganPhotos/Long Cardigan (1).jpg';
 import shortCardiganImage from '@/assets/ShortCardiganPhotos/Short Cardigan (1).jpg';
 
+const categoryVisuals: Record<string, { image: string; description: string }> = {
+  'long-cardigans': {
+    image: longCardiganImage,
+    description: 'Elegant long cardigans for a cozy, statement look',
+  },
+  'short-cardigans': {
+    image: shortCardiganImage,
+    description: 'Stylish short cardigans for everyday layering',
+  },
+};
+
 const Products = () => {
-  const categories = [
-    {
-      id: 'long-cardigans',
-      name: 'Long Cardigans',
-      image: longCardiganImage,
-      description: 'Elegant long cardigans for a cozy, statement look'
-    },
-    {
-      id: 'short-cardigans',
-      name: 'Short Cardigans',
-      image: shortCardiganImage,
-      description: 'Stylish short cardigans for everyday layering'
-    }
-  ].map((category) => ({
-    ...category,
-    itemCount: getProductsByCategory(category.id).length
-  }));
+  const products = getCatalogProducts();
+
+  const categories = Array.from(
+    products.reduce((map, product) => {
+      const key = product.categoryKey?.trim() || product.category?.toLowerCase().trim().replace(/\s+/g, '-') || 'general';
+      const current = map.get(key);
+      if (current) {
+        current.itemCount += 1;
+        return map;
+      }
+
+      const visual = categoryVisuals[key];
+      map.set(key, {
+        id: key,
+        name: product.category?.trim() || 'General',
+        image: visual?.image || product.image || shortCardiganImage,
+        description: visual?.description || `Explore our ${product.category?.trim() || 'general'} collection.`,
+        itemCount: 1,
+      });
+      return map;
+    }, new Map<string, { id: string; name: string; image: string; description: string; itemCount: number }>())
+  )
+    .map(([, category]) => category)
+    .sort((a, b) => a.name.localeCompare(b.name));
 
   return (
     <div className="min-h-screen bg-background">

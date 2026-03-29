@@ -44,13 +44,19 @@ const ProductCategory = () => {
     }
   };
 
-  const currentCategory = categoryData[normalizedCategoryId as keyof typeof categoryData] || categoryData.turtleneck;
-
   const productsFromCategory = normalizedCategoryId
     ? getProductsByCategory(normalizedCategoryId)
     : getCatalogProducts();
   const products = productsFromCategory.length ? productsFromCategory : [];
   const isEmpty = !productsFromCategory.length;
+
+  const dynamicCategoryName = products[0]?.category?.trim() || 'Collection';
+  const currentCategory =
+    categoryData[normalizedCategoryId as keyof typeof categoryData] ||
+    {
+      name: dynamicCategoryName,
+      description: `Explore our ${dynamicCategoryName.toLowerCase()} collection.`,
+    };
 
   return (
     <div className="min-h-screen bg-background">
