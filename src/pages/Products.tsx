@@ -18,8 +18,13 @@ const categoryVisuals: Record<string, { image: string; description: string }> = 
   },
 };
 
+const hiddenCategoryKeys = new Set(['cardigan', 'pullover', 'turtleneck']);
+
 const Products = () => {
-  const products = getCatalogProducts();
+  const products = getCatalogProducts().filter((product) => {
+    const key = product.categoryKey?.trim().toLowerCase() || product.category?.trim().toLowerCase().replace(/\s+/g, '-') || 'general';
+    return !hiddenCategoryKeys.has(key);
+  });
 
   const categories = Array.from(
     products.reduce((map, product) => {
