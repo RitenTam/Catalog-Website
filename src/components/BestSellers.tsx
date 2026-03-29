@@ -1,11 +1,11 @@
 import { ChevronLeft, ChevronRight, MessageCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import { products as allProducts, type Product } from '@/data/products';
+import { getCatalogProducts, type Product } from '@/data/products';
 import { getOrCreateAnalyticsSessionId, recordWhatsAppClick } from '@/data/whatsappAnalytics';
 
 const BestSellers = () => {
-  const products = allProducts.slice(0, 6);
+  const products = getCatalogProducts().slice(0, 6);
 
   const scroll = (direction: 'left' | 'right') => {
     const container = document.querySelector('.products-slider');

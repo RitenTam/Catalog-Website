@@ -5,7 +5,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { MessageCircle, Search } from 'lucide-react';
-import { products as allProducts, type Product } from '@/data/products';
+import { getCatalogProducts, type Product } from '@/data/products';
 import { getOrCreateAnalyticsSessionId, recordWhatsAppClick } from '@/data/whatsappAnalytics';
 
 type SearchableProduct = Product & {
@@ -20,7 +20,7 @@ const SearchResults = () => {
 
   const allProductsWithKeywords = useMemo<SearchableProduct[]>(
     () =>
-      allProducts.map((product) => ({
+      getCatalogProducts().map((product) => ({
         ...product,
         category: product.category ?? '',
         keywords: [
@@ -29,7 +29,7 @@ const SearchResults = () => {
           ...product.name.toLowerCase().split(' ')
         ]
       })),
-    []
+    [query]
   );
 
   useEffect(() => {

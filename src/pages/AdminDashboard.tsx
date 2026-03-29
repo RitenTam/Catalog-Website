@@ -30,7 +30,11 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import { products as catalogProducts } from "@/data/products";
+import {
+  notifyCatalogProductsChanged,
+  PRODUCT_STORAGE_KEY,
+  products as catalogProducts,
+} from "@/data/products";
 import {
   clearAdminAuthenticated,
   getAdminAuthenticated,
@@ -116,7 +120,6 @@ type ProductForm = {
   stock: string;
 };
 
-const PRODUCT_STORAGE_KEY = "catalog-admin-products";
 const SIZE_OPTIONS = ["XS", "S", "M", "L", "XL", "XXL"];
 const PIE_COLORS = ["#0f766e", "#f59e0b", "#2563eb", "#ef4444", "#8b5cf6", "#14b8a6", "#f97316"];
 
@@ -215,9 +218,8 @@ const AdminDashboard = () => {
   }, []);
 
   useEffect(() => {
-    if (adminProducts.length > 0) {
-      localStorage.setItem(PRODUCT_STORAGE_KEY, JSON.stringify(adminProducts));
-    }
+    localStorage.setItem(PRODUCT_STORAGE_KEY, JSON.stringify(adminProducts));
+    notifyCatalogProductsChanged();
   }, [adminProducts]);
 
   useEffect(() => {

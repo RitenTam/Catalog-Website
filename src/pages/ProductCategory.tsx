@@ -3,7 +3,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import { getProductsByCategory, products as allProducts } from '@/data/products';
+import { getCatalogProducts, getProductsByCategory } from '@/data/products';
 
 const ProductCategory = () => {
   const { categoryId } = useParams();
@@ -48,7 +48,7 @@ const ProductCategory = () => {
 
   const productsFromCategory = normalizedCategoryId
     ? getProductsByCategory(normalizedCategoryId)
-    : allProducts;
+    : getCatalogProducts();
   const products = productsFromCategory.length ? productsFromCategory : [];
   const isEmpty = !productsFromCategory.length;
 

@@ -8,6 +8,9 @@ import longCardigan1 from '@/assets/LongCardiganPhotos/Long Cardigan (1).jpg';
 import longCardigan2 from '@/assets/LongCardiganPhotos/Long Cardigan (2).jpg';
 import longCardigan3 from '@/assets/LongCardiganPhotos/Long Cardigan (3).jpg';
 
+export const PRODUCT_STORAGE_KEY = 'catalog-admin-products';
+export const CATALOG_PRODUCTS_UPDATED_EVENT = 'catalog-products-updated';
+
 export type Product = {
   id: number;
   name: string;
@@ -19,6 +22,17 @@ export type Product = {
   category?: string;
   categoryKey?: string;
   image?: string;
+};
+
+type StoredAdminProduct = {
+  id: number;
+  name: string;
+  category?: string;
+  price?: number;
+  sizes?: string[];
+  colors?: string[];
+  description?: string;
+  images?: string[];
 };
 
 export const products: Product[] = [
@@ -193,15 +207,77 @@ export const products: Product[] = [
   }
 ];
 
+function slugifyCategory(value: string) {
+  return value
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9\s-]/g, '')
+    .replace(/\s+/g, '-')
+    .replace(/-+/g, '-');
+}
+
+function mapStoredToProduct(item: StoredAdminProduct, index: number): Product {
+  const fallbackImage = products[index % products.length]?.image;
+  const category = item.category?.trim() || 'General';
+
+  return {
+    id: item.id,
+    name: item.name,
+    images: Array.isArray(item.images) && item.images.length > 0
+      ? item.images
+      : fallbackImage
+        ? [fallbackImage]
+        : [],
+    colors: Array.isArray(item.colors) && item.colors.length > 0
+      ? item.colors.map((name) => ({ name, hex: '#6b7280' }))
+      : [{ name: 'Default', hex: '#6b7280' }],
+    sizes: Array.isArray(item.sizes) && item.sizes.length > 0 ? item.sizes : ['M'],
+    features: ['Premium knitwear', 'Comfort fit', 'Carefully curated for everyday wear'],
+    description: item.description?.trim() || 'Premium woolen product from our latest collection.',
+    category,
+    categoryKey: slugifyCategory(category),
+    image: (Array.isArray(item.images) && item.images[0]) || fallbackImage,
+  };
+}
+
+export function getCatalogProducts(): Product[] {
+  if (typeof window === 'undefined') {
+    return products;
+  }
+
+  try {
+    const stored = localStorage.getItem(PRODUCT_STORAGE_KEY);
+    if (!stored) {
+      return products;
+    }
+
+    const parsed = JSON.parse(stored) as StoredAdminProduct[];
+    if (!Array.isArray(parsed) || parsed.length === 0) {
+      return products;
+    }
+
+    return parsed.map((item, index) => mapStoredToProduct(item, index));
+  } catch {
+    return products;
+  }
+}
+
+export function notifyCatalogProductsChanged() {
+  if (typeof window !== 'undefined') {
+    window.dispatchEvent(new Event(CATALOG_PRODUCTS_UPDATED_EVENT));
+  }
+}
+
 export function getProductById(id: number) {
-  return products.find((item) => item.id === id);
+  return getCatalogProducts().find((item) => item.id === id);
 }
 
 export function getProductsByCategory(categoryKey: string) {
+  const allProducts = getCatalogProducts();
   const slug = categoryKey?.toLowerCase().trim();
-  if (!slug) return products;
+  if (!slug) return allProducts;
 
-  return products.filter((item) => {
+  return allProducts.filter((item) => {
     const key = item.categoryKey?.toLowerCase().trim() || '';
     const category = item.category?.toLowerCase().trim() || '';
 
