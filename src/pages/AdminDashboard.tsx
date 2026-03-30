@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   BarChart3,
   Box,
@@ -159,6 +159,7 @@ function readAsDataUrl(file: File) {
 
 const AdminDashboard = () => {
   const { toast } = useToast();
+  const navigate = useNavigate();
 
   const [activeSection, setActiveSection] = useState<AdminSection>("dashboard");
   const [adminProducts, setAdminProducts] = useState<AdminProduct[]>([]);
@@ -586,6 +587,11 @@ const AdminDashboard = () => {
     toast({ title: "Signed out", description: "Admin session ended." });
   };
 
+  const logoutToHome = () => {
+    logout();
+    navigate("/");
+  };
+
   const SidebarContent = () => (
     <div className="flex h-full flex-col">
       <div className="border-b border-border/80 px-5 py-5">
@@ -614,9 +620,9 @@ const AdminDashboard = () => {
       </nav>
 
       <div className="mt-auto border-t border-border/80 p-4">
-        <Button variant="outline" className="w-full" onClick={logout}>
+        <Button variant="outline" className="w-full" onClick={logoutToHome}>
           <LogOut className="mr-2 h-4 w-4" />
-          Logout
+          Logout to Home
         </Button>
       </div>
     </div>
@@ -878,6 +884,10 @@ const AdminDashboard = () => {
           </div>
 
           <div className="hidden items-center gap-2 sm:flex">
+            <Button variant="outline" size="sm" onClick={logoutToHome}>
+              <LogOut className="mr-2 h-4 w-4" />
+              Logout to Home
+            </Button>
             <Badge variant="secondary">{metrics.totalProducts} Products</Badge>
             <Badge variant={metrics.lowStockCount > 0 ? "destructive" : "default"}>
               {metrics.lowStockCount} Low Stock
