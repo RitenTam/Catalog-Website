@@ -6,7 +6,11 @@ import { getOrCreateAnalyticsSessionId, recordWhatsAppClick } from '@/data/whats
 
 const BestSellers = () => {
   const products = getCatalogProducts()
-    .filter((product) => product.name !== 'Classic Wool Turtleneck')
+    .filter(
+      (product) =>
+        product.name !== 'Classic Wool Turtleneck' &&
+        product.name !== 'Premium Cashmere Blend'
+    )
     .slice(0, 6);
 
   const scroll = (direction: 'left' | 'right') => {
