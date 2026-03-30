@@ -5,7 +5,9 @@ import { getCatalogProducts, type Product } from '@/data/products';
 import { getOrCreateAnalyticsSessionId, recordWhatsAppClick } from '@/data/whatsappAnalytics';
 
 const BestSellers = () => {
-  const products = getCatalogProducts().slice(0, 6);
+  const products = getCatalogProducts()
+    .filter((product) => product.name !== 'Classic Wool Turtleneck')
+    .slice(0, 6);
 
   const scroll = (direction: 'left' | 'right') => {
     const container = document.querySelector('.products-slider');
