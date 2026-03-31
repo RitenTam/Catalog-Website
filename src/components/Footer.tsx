@@ -11,11 +11,10 @@ const Footer = () => {
   ];
 
   const collections = [
-    { name: 'Turtleneck', href: '/products/turtleneck' },
-    { name: 'Cardigan', href: '/products/cardigan' },
-    { name: 'Pullover', href: '/products/pullover' },
     { name: 'Long Cardigan', href: '/products/long-cardigan' },
-    { name: 'Short Cardigan', href: '/products/short-cardigan' }
+    { name: 'Short Cardigan', href: '/products/short-cardigan' },
+    { name: 'Shawl', href: '/products/shawl' },
+    { name: 'Sweater', href: '/products/sweater' }
   ];
 
   return (
