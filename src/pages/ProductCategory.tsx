@@ -114,6 +114,9 @@ const ProductCategory = () => {
                       </div>
 
                       <CardContent className="p-6">
+                        <p className="mb-2 text-xs font-semibold tracking-wide text-primary">
+                          {product.productCode}
+                        </p>
                         <h3 className="text-xl font-semibold text-foreground mb-3">
                           {product.name}
                         </h3>
@@ -131,7 +134,7 @@ const ProductCategory = () => {
 
                         <div className="flex items-center justify-center">
                           <Button className="w-full" variant="secondary">
-                            View Details
+                            Bulk Order Setup
                           </Button>
                         </div>
                       </CardContent>

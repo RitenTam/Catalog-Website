@@ -14,11 +14,13 @@ export const CATALOG_PRODUCTS_UPDATED_EVENT = 'catalog-products-updated';
 export type Product = {
   id: number;
   name: string;
+  productCode: string;
   images: string[];
   colors: { name: string; hex: string }[];
   sizes: string[];
   features: string[];
   description: string;
+  basePrice?: number;
   category?: string;
   categoryKey?: string;
   image?: string;
@@ -27,6 +29,7 @@ export type Product = {
 type StoredAdminProduct = {
   id: number;
   name: string;
+  productCode?: string;
   category?: string;
   price?: number;
   sizes?: string[];
@@ -39,6 +42,8 @@ export const products: Product[] = [
   {
     id: 1,
     name: 'Classic Wool Turtleneck',
+    productCode: 'SW-101',
+    basePrice: 1490,
     category: 'Turtleneck',
     categoryKey: 'turtleneck',
     images: [product1, product2, product3],
@@ -63,6 +68,8 @@ export const products: Product[] = [
   {
     id: 2,
     name: 'Premium Cashmere Blend',
+    productCode: 'SW-205',
+    basePrice: 1690,
     category: 'Cardigan',
     categoryKey: 'cardigan',
     images: [product2, product3, product1],
@@ -85,6 +92,8 @@ export const products: Product[] = [
   {
     id: 3,
     name: 'Soft Merino Wool',
+    productCode: 'SW-309',
+    basePrice: 1390,
     category: 'Pullover',
     categoryKey: 'pullover',
     images: [product3, product1, product2],
@@ -106,6 +115,8 @@ export const products: Product[] = [
   {
     id: 4,
     name: 'Long Cardigan Style 1',
+    productCode: 'SW-412',
+    basePrice: 1550,
     category: 'Long Cardigan',
     categoryKey: 'long-cardigans',
     images: [longCardigan1, longCardigan2, longCardigan3],
@@ -127,6 +138,8 @@ export const products: Product[] = [
   {
     id: 5,
     name: 'Short Cardigan Style 1',
+    productCode: 'SW-518',
+    basePrice: 1490,
     category: 'Short Cardigan',
     categoryKey: 'short-cardigans',
     images: [shortCardigan1, shortCardigan2, shortCardigan3],
@@ -148,6 +161,8 @@ export const products: Product[] = [
   {
     id: 6,
     name: 'Long Cardigan Style 2',
+    productCode: 'SW-624',
+    basePrice: 1590,
     category: 'Long Cardigan',
     categoryKey: 'long-cardigans',
     images: [longCardigan1, longCardigan2, longCardigan3],
@@ -168,6 +183,8 @@ export const products: Product[] = [
   {
     id: 7,
     name: 'Short Cardigan Style 2',
+    productCode: 'SW-733',
+    basePrice: 1520,
     category: 'Short Cardigan',
     categoryKey: 'short-cardigans',
     images: [shortCardigan1, shortCardigan2, shortCardigan3],
@@ -188,6 +205,8 @@ export const products: Product[] = [
   {
     id: 8,
     name: 'Long Cardigan Style 3',
+    productCode: 'SW-845',
+    basePrice: 1620,
     category: 'Long Cardigan',
     categoryKey: 'long-cardigans',
     images: [longCardigan1, longCardigan2, longCardigan3],
@@ -216,13 +235,26 @@ function slugifyCategory(value: string) {
     .replace(/-+/g, '-');
 }
 
+function getFallbackProductCode(item: StoredAdminProduct, index: number) {
+  const fromName = (item.name || 'WOOL')
+    .replace(/[^a-zA-Z]/g, '')
+    .slice(0, 2)
+    .toUpperCase()
+    .padEnd(2, 'X');
+
+  const suffix = String(item.id || index + 1).padStart(3, '0');
+  return `${fromName}-${suffix}`;
+}
+
 function mapStoredToProduct(item: StoredAdminProduct, index: number): Product {
   const fallbackImage = products[index % products.length]?.image;
+  const fallbackPrice = products[index % products.length]?.basePrice || 1200;
   const category = item.category?.trim() || 'General';
 
   return {
     id: item.id,
     name: item.name,
+    productCode: item.productCode?.trim() || getFallbackProductCode(item, index),
     images: Array.isArray(item.images) && item.images.length > 0
       ? item.images
       : fallbackImage
@@ -234,6 +266,7 @@ function mapStoredToProduct(item: StoredAdminProduct, index: number): Product {
     sizes: Array.isArray(item.sizes) && item.sizes.length > 0 ? item.sizes : ['M'],
     features: ['Premium knitwear', 'Comfort fit', 'Carefully curated for everyday wear'],
     description: item.description?.trim() || 'Premium woolen product from our latest collection.',
+    basePrice: item.price && item.price > 0 ? item.price : fallbackPrice,
     category,
     categoryKey: slugifyCategory(category),
     image: (Array.isArray(item.images) && item.images[0]) || fallbackImage,
