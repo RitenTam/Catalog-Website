@@ -134,7 +134,7 @@ const ProductCategory = () => {
 
                         <div className="flex items-center justify-center">
                           <Button className="w-full" variant="secondary">
-                            Bulk Order Setup
+                            View Product
                           </Button>
                         </div>
                       </CardContent>
