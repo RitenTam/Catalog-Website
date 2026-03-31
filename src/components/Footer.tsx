@@ -1,17 +1,21 @@
 import { MapPin, Phone, Mail, MessageCircle, Facebook } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { Link } from 'react-router-dom';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
   
   const quickLinks = [
     { name: 'Product', href: '/products' },
-    { name: 'About Us', href: '#about' }
+    { name: 'About Us', href: '/about' }
   ];
 
-  const categories = [
-    'Long Cardigans',
-    'Short Cardigans'
+  const collections = [
+    { name: 'Long Cardigans', href: '/products/long-cardigans' },
+    { name: 'Short Cardigans', href: '/products/short-cardigans' },
+    { name: 'Turtleneck Sweaters', href: '/products/turtleneck' },
+    { name: 'Cardigans', href: '/products/cardigan' },
+    { name: 'Pullovers', href: '/products/pullover' }
   ];
 
   return (
@@ -47,29 +51,29 @@ const Footer = () => {
             <ul className="space-y-3">
               {quickLinks.map((link) => (
                 <li key={link.name}>
-                  <a
-                    href={link.href}
+                  <Link
+                    to={link.href}
                     className="footer-link text-primary-foreground/70 hover:text-primary-foreground transition-colors"
                   >
                     {link.name}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Product Categories */}
+          {/* Product Collections */}
           <div>
             <h4 className="text-lg font-semibold mb-6">Our Collections</h4>
             <ul className="space-y-3">
-              {categories.map((category) => (
-                <li key={category}>
-                  <a
-                    href="#products"
+              {collections.map((collection) => (
+                <li key={collection.name}>
+                  <Link
+                    to={collection.href}
                     className="footer-link text-primary-foreground/70 hover:text-primary-foreground transition-colors"
                   >
-                    {category}
-                  </a>
+                    {collection.name}
+                  </Link>
                 </li>
               ))}
             </ul>

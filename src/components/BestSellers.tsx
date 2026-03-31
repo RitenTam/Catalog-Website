@@ -1,4 +1,5 @@
 import { ChevronLeft, ChevronRight, MessageCircle } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { getCatalogProducts, type Product } from '@/data/products';
@@ -9,7 +10,8 @@ const BestSellers = () => {
     .filter(
       (product) =>
         product.name !== 'Classic Wool Turtleneck' &&
-        product.name !== 'Premium Cashmere Blend'
+        product.name !== 'Premium Cashmere Blend' &&
+        product.name !== 'Soft Merino Wool'
     )
     .slice(0, 6);
 
@@ -115,9 +117,12 @@ const BestSellers = () => {
 
                 <CardContent className="p-4">
                   <div className="mb-2">
-                    <span className="text-xs text-muted-foreground uppercase tracking-wide">
+                    <Link 
+                      to={`/category/${product.category.toLowerCase().trim().replace(/\s+/g, '-')}`}
+                      className="text-xs text-muted-foreground uppercase tracking-wide hover:text-primary transition-colors duration-200"
+                    >
                       {product.category}
-                    </span>
+                    </Link>
                   </div>
                   
                   <h3 className="font-semibold text-lg mb-2 text-foreground truncate">
