@@ -13,6 +13,7 @@ const Footer = () => {
   const collections = [
     { name: 'Long Cardigan', href: '/products/long-cardigan' },
     { name: 'Short Cardigan', href: '/products/short-cardigan' },
+    { name: 'Coat', href: '/products/coat' },
     { name: 'Shawl', href: '/products/shawl' },
     { name: 'Sweater', href: '/products/sweater' }
   ];
