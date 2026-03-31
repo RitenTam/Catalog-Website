@@ -3,6 +3,7 @@ import Header from '@/components/Header';
 import HeroCarousel from '@/components/HeroCarousel';
 import BestSellers from '@/components/BestSellers';
 import Footer from '@/components/Footer';
+import Chatbot from '@/components/Chatbot';
 
 const Index = () => {
   useEffect(() => {
@@ -82,6 +83,7 @@ const Index = () => {
       </main>
       
       <Footer />
+      <Chatbot />
     </div>
   );
 };
