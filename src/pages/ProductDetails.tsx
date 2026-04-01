@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
+import { MessageCircle } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { getProductById } from '@/data/products';
+import { getOrCreateAnalyticsSessionId, recordWhatsAppClick } from '@/data/whatsappAnalytics';
 
 const ProductDetails = () => {
   const { productId } = useParams();
@@ -25,6 +27,28 @@ const ProductDetails = () => {
 
     setCurrentImageIndex(0);
   }, [product, navigate]);
+
+  const handleWhatsAppInquiry = () => {
+    if (!product) return;
+
+    recordWhatsAppClick({
+      productId: product.id,
+      productName: product.name,
+      productCategory: product.category,
+      source: 'product-details',
+      sessionId: getOrCreateAnalyticsSessionId(),
+    });
+
+    const message = `Hi, I'm interested in ${product.name} (Code: ${product.productCode}). Please share price and availability.`;
+    const phoneNumber = '9779863651986';
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+
+    const whatsappUrl = isMobile
+      ? `whatsapp://send?phone=${phoneNumber}&text=${encodeURIComponent(message)}`
+      : `https://web.whatsapp.com/send?phone=${phoneNumber}&text=${encodeURIComponent(message)}`;
+
+    window.open(whatsappUrl, '_blank');
+  };
 
   if (!product) {
     return (
@@ -127,37 +151,10 @@ const ProductDetails = () => {
                     ))}
                   </div>
 
-                  <h3 className="text-lg font-semibold mb-3">Variant Matrix</h3>
-                  <p className="mb-3 text-sm text-muted-foreground">
-                    Rows are sizes and columns are colors.
-                  </p>
-
-                  <div className="overflow-x-auto rounded-lg border">
-                    <table className="w-full min-w-[460px] border-collapse text-sm">
-                      <thead>
-                        <tr className="bg-muted/50">
-                          <th className="border px-3 py-2 text-left font-semibold">Size / Color</th>
-                          {product.colors.map((color) => (
-                            <th key={color.name} className="border px-3 py-2 text-center font-semibold">
-                              {color.name}
-                            </th>
-                          ))}
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {product.sizes.map((size) => (
-                          <tr key={size}>
-                            <td className="border px-3 py-2 font-medium">{size}</td>
-                            {product.colors.map((color) => (
-                              <td key={`${size}-${color.name}`} className="border px-3 py-2 text-center text-muted-foreground">
-                                Available
-                              </td>
-                            ))}
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
+                  <Button onClick={handleWhatsAppInquiry} className="w-full sm:w-auto">
+                    <MessageCircle className="w-4 h-4 mr-2" />
+                    Buy / Inquire on WhatsApp
+                  </Button>
                 </div>
 
                 {/* Product Features */}
