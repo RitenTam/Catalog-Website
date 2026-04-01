@@ -47,7 +47,6 @@ import {
   getFilteredAnalyticsEvents,
   getWhatsAppAnalyticsSnapshot,
   markWhatsAppInquiryConverted,
-  subscribeToWhatsAppAnalytics,
 } from "@/data/whatsappAnalytics";
 import { useToast } from "@/hooks/use-toast";
 import { Button } from "@/components/ui/button";
@@ -190,7 +189,6 @@ const AdminDashboard = () => {
   const [analyticsDateFilter, setAnalyticsDateFilter] = useState<AnalyticsDateFilter>("weekly");
   const [analyticsCategoryFilter, setAnalyticsCategoryFilter] = useState("all");
   const [analyticsTopLimit, setAnalyticsTopLimit] = useState<"5" | "10">("5");
-  const [analyticsVersion, setAnalyticsVersion] = useState(0);
 
   useEffect(() => {
     document.title = "Admin Dashboard | ChaurasiyaHojiyari";
@@ -222,14 +220,6 @@ const AdminDashboard = () => {
     localStorage.setItem(PRODUCT_STORAGE_KEY, JSON.stringify(adminProducts));
     notifyCatalogProductsChanged();
   }, [adminProducts]);
-
-  useEffect(() => {
-    const unsubscribe = subscribeToWhatsAppAnalytics(() => {
-      setAnalyticsVersion((current) => current + 1);
-    });
-
-    return unsubscribe;
-  }, []);
 
   const categories = useMemo(() => {
     const values = Array.from(new Set(adminProducts.map((item) => item.category)));
@@ -294,7 +284,7 @@ const AdminDashboard = () => {
         categoryFilter: analyticsCategoryFilter,
         topLimit: Number(analyticsTopLimit),
       }),
-    [analyticsCategoryFilter, analyticsDateFilter, analyticsTopLimit, analyticsVersion]
+    [analyticsCategoryFilter, analyticsDateFilter, analyticsTopLimit]
   );
 
   const analyticsEventsForExport = useMemo(
@@ -303,7 +293,7 @@ const AdminDashboard = () => {
         dateFilter: analyticsDateFilter,
         categoryFilter: analyticsCategoryFilter,
       }),
-    [analyticsCategoryFilter, analyticsDateFilter, analyticsVersion]
+    [analyticsCategoryFilter, analyticsDateFilter]
   );
 
   const conversionPieData = useMemo(

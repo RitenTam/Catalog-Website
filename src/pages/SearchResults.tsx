@@ -29,7 +29,7 @@ const SearchResults = () => {
           ...product.name.toLowerCase().split(' ')
         ]
       })),
-    [query]
+    []
   );
 
   useEffect(() => {
