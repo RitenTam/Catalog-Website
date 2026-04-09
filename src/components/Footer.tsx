@@ -1,6 +1,7 @@
 import { MapPin, Phone, Mail, MessageCircle, Facebook } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
+import { CONTACT_DISPLAY_PHONE, CONTACT_EMAIL, CONTACT_PHONE_NUMBER, FACEBOOK_PROFILE_URL } from '@/lib/contact';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -19,7 +20,7 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="bg-primary text-primary-foreground">
+    <footer id="footer" className="bg-primary text-primary-foreground">
       <div className="container mx-auto px-4 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           
@@ -33,12 +34,12 @@ const Footer = () => {
             {/* Social Media */}
             <div className="flex space-x-4">
               <Button size="sm" variant="ghost" className="p-2 hover:bg-primary-foreground/10" asChild>
-                <a href="https://www.facebook.com/profile.php?id=100092708685384" target="_blank" rel="noopener noreferrer">
+                <a href={FACEBOOK_PROFILE_URL} target="_blank" rel="noopener noreferrer">
                   <Facebook className="w-5 h-5" />
                 </a>
               </Button>
               <Button size="sm" variant="ghost" className="p-2 hover:bg-primary-foreground/10" asChild>
-                <a href="https://wa.me/9779863651986" target="_blank" rel="noopener noreferrer">
+                <a href={`https://wa.me/${CONTACT_PHONE_NUMBER}`} target="_blank" rel="noopener noreferrer">
                   <MessageCircle className="w-5 h-5" />
                 </a>
               </Button>
@@ -99,8 +100,8 @@ const Footer = () => {
               <div className="flex items-center space-x-3">
                 <Phone className="w-5 h-5 text-primary-foreground/80 flex-shrink-0" />
                 <div>
-                  <a href="tel:+9779863651986" className="footer-link text-primary-foreground/80 hover:text-primary-foreground">
-                    9863651986
+                  <a href={`tel:+${CONTACT_PHONE_NUMBER}`} className="footer-link text-primary-foreground/80 hover:text-primary-foreground">
+                    {CONTACT_DISPLAY_PHONE}
                   </a>
                 </div>
               </div>
@@ -109,8 +110,8 @@ const Footer = () => {
               <div className="flex items-center space-x-3">
                 <Mail className="w-5 h-5 text-primary-foreground/80 flex-shrink-0" />
                 <div>
-                  <a href="mailto:contact@chaurasiyahojiyari.com" className="footer-link text-primary-foreground/80 hover:text-primary-foreground">
-                    contact@chaurasiyahojiyari.com
+                  <a href={`mailto:${CONTACT_EMAIL}`} className="footer-link text-primary-foreground/80 hover:text-primary-foreground">
+                    {CONTACT_EMAIL}
                   </a>
                 </div>
               </div>
@@ -119,8 +120,8 @@ const Footer = () => {
               <div className="flex items-center space-x-3">
                 <MessageCircle className="w-5 h-5 text-primary-foreground/80 flex-shrink-0" />
                 <div>
-                  <a href="https://wa.me/9779863651986" className="footer-link text-primary-foreground/80 hover:text-primary-foreground">
-                    WhatsApp: 9863651986
+                  <a href={`https://wa.me/${CONTACT_PHONE_NUMBER}`} className="footer-link text-primary-foreground/80 hover:text-primary-foreground">
+                    WhatsApp: {CONTACT_DISPLAY_PHONE}
                   </a>
                 </div>
               </div>

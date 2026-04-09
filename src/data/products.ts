@@ -1,6 +1,3 @@
-import product1 from '@/assets/ShortCardiganPhotos/Short Cardigan (1).jpg';
-import product2 from '@/assets/ShortCardiganPhotos/Short Cardigan (2).jpg';
-import product3 from '@/assets/ShortCardiganPhotos/Short Cardigan (3).jpg';
 import shortCardigan1 from '@/assets/ShortCardiganPhotos/Short Cardigan (1).jpg';
 import shortCardigan2 from '@/assets/ShortCardiganPhotos/Short Cardigan (2).jpg';
 import shortCardigan3 from '@/assets/ShortCardiganPhotos/Short Cardigan (3).jpg';
@@ -46,7 +43,7 @@ export const products: Product[] = [
     basePrice: 1490,
     category: 'Turtleneck',
     categoryKey: 'turtleneck',
-    images: [product1, product2, product3],
+    images: [shortCardigan1, shortCardigan2, shortCardigan3],
     colors: [
       { name: 'Cream', hex: '#F5F5DC' },
       { name: 'Beige', hex: '#F5F5DC' },
@@ -63,7 +60,7 @@ export const products: Product[] = [
       'Made in India with ethical practices'
     ],
     description: 'Experience ultimate comfort and elegance with our Classic Wool Turtleneck. Crafted from the finest merino wool, this sweater offers exceptional warmth and softness while maintaining a sophisticated silhouette perfect for any occasion.',
-    image: product1
+    image: shortCardigan1
   },
   {
     id: 2,
@@ -72,7 +69,7 @@ export const products: Product[] = [
     basePrice: 1690,
     category: 'Cardigan',
     categoryKey: 'cardigan',
-    images: [product2, product3, product1],
+    images: [shortCardigan2, shortCardigan3, shortCardigan1],
     colors: [
       { name: 'Pink', hex: '#FFC0CB' },
       { name: 'White', hex: '#FFFFFF' },
@@ -87,7 +84,7 @@ export const products: Product[] = [
       'Modern fit for everyday wear'
     ],
     description: 'Our Premium Cashmere Blend sweater combines heavenly softness with refined style. Made from a premium blend of cashmere and wool, it provides a breathable warmth while maintaining a polished finish.',
-    image: product2
+    image: shortCardigan2
   },
   {
     id: 3,
@@ -96,7 +93,7 @@ export const products: Product[] = [
     basePrice: 1390,
     category: 'Pullover',
     categoryKey: 'pullover',
-    images: [product3, product1, product2],
+    images: [shortCardigan3, shortCardigan1, shortCardigan2],
     colors: [
       { name: 'Grey', hex: '#808080' },
       { name: 'Black', hex: '#000000' },
@@ -110,7 +107,7 @@ export const products: Product[] = [
       'Classic fit with modern details'
     ],
     description: 'Soft Merino Wool sweater is an everyday essential with natural insulation and breathable comfort. Perfect for layering in cooler weather or wearing on its own for a clean look.',
-    image: product3
+    image: shortCardigan3
   },
   {
     id: 4,

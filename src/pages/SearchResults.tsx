@@ -7,6 +7,7 @@ import Footer from '@/components/Footer';
 import { MessageCircle, Search } from 'lucide-react';
 import { getCatalogProducts, type Product } from '@/data/products';
 import { getOrCreateAnalyticsSessionId, recordWhatsAppClick } from '@/data/whatsappAnalytics';
+import { buildWhatsAppWebUrl } from '@/lib/whatsapp';
 
 type SearchableProduct = Product & {
   category: string;
@@ -55,8 +56,7 @@ const SearchResults = () => {
     });
 
     const message = `Hi, I'm interested in the ${product.name}. Can you provide more details?`;
-    const phoneNumber = '9779863651986';
-    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+    const whatsappUrl = buildWhatsAppWebUrl(message);
     window.location.href = whatsappUrl;
   };
 

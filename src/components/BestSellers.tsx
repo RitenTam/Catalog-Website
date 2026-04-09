@@ -1,11 +1,14 @@
 import { ChevronLeft, ChevronRight, MessageCircle } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { getCatalogProducts, type Product } from '@/data/products';
 import { getOrCreateAnalyticsSessionId, recordWhatsAppClick } from '@/data/whatsappAnalytics';
+import { CONTACT_PHONE_NUMBER } from '@/lib/contact';
+import { buildWhatsAppSmartUrl } from '@/lib/whatsapp';
 
 const BestSellers = () => {
+  const navigate = useNavigate();
   const products = getCatalogProducts()
     .filter(
       (product) =>
@@ -36,20 +39,8 @@ const BestSellers = () => {
     });
 
     const message = `Hi, I'm interested in ${product.name}. Can you provide more details?`;
-    const phoneNumber = '9779863651986';
-    
-    // Detect if user is on mobile
-    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-    
-    let whatsappUrl;
-    if (isMobile) {
-      // Use whatsapp:// scheme for mobile app
-      whatsappUrl = `whatsapp://send?phone=${phoneNumber}&text=${encodeURIComponent(message)}`;
-    } else {
-      // Use web WhatsApp for desktop
-      whatsappUrl = `https://web.whatsapp.com/send?phone=${phoneNumber}&text=${encodeURIComponent(message)}`;
-    }
-    
+    const whatsappUrl = buildWhatsAppSmartUrl(message, navigator.userAgent, CONTACT_PHONE_NUMBER);
+
     window.open(whatsappUrl, '_blank');
   };
 
@@ -134,7 +125,7 @@ const BestSellers = () => {
                     <Button 
                       size="sm" 
                       className="btn-outline w-full"
-                      onClick={() => window.location.href = `/product/${product.id}`}
+                      onClick={() => navigate(`/product/${product.id}`)}
                     >
                       View Details
                     </Button>
@@ -147,7 +138,7 @@ const BestSellers = () => {
 
         {/* View All Button */}
         <div className="text-center mt-12">
-          <Button className="btn-hero" onClick={() => window.location.href = '/products'}>
+          <Button className="btn-hero" onClick={() => navigate('/products')}>
             View All Products
           </Button>
         </div>

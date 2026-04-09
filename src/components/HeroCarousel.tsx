@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import carouselImage1 from '@/assets/Carousel Image/Carousel Img 1.png';
@@ -6,6 +7,7 @@ import carouselImage2 from '@/assets/Carousel Image/Carousel Img 2.png';
 import carouselImage3 from '@/assets/Carousel Image/Carousel Img 3.png';
 
 const HeroCarousel = () => {
+  const navigate = useNavigate();
   const [currentSlide, setCurrentSlide] = useState(0);
 
   const slides = [
@@ -85,7 +87,7 @@ const HeroCarousel = () => {
                       {slide.description}
                     </p>
                     <div className="flex flex-col sm:flex-row gap-4 justify-center bounce-in">
-                      <Button className="btn-hero" onClick={() => window.location.href = '/products'}>
+                      <Button className="btn-hero" onClick={() => navigate('/products')}>
                         View Collection
                       </Button>
                     </div>

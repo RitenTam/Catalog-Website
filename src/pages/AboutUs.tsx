@@ -1,9 +1,12 @@
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { Card, CardContent } from '@/components/ui/card';
+import { useNavigate } from 'react-router-dom';
 import { Users, Heart, Award, Leaf } from 'lucide-react';
 
 const AboutUs = () => {
+  const navigate = useNavigate();
+
   return (
     <div className="min-h-screen bg-background">
       <Header />
@@ -149,13 +152,13 @@ const AboutUs = () => {
             </p>
             <div className="space-x-4">
               <button 
-                onClick={() => window.location.href = '/products'}
+                onClick={() => navigate('/products')}
                 className="btn-hero px-8 py-4 rounded-xl font-semibold text-lg transition-all duration-300 hover:scale-105 elegant-shadow bg-primary hover:bg-primary/90 text-primary-foreground"
               >
                 Shop Collection
               </button>
               <button 
-                onClick={() => window.location.href = '#footer'}
+                onClick={() => document.getElementById('footer')?.scrollIntoView({ behavior: 'smooth' })}
                 className="btn-outline px-8 py-4 rounded-xl font-semibold text-lg transition-all duration-300 border-2 border-primary text-primary hover:bg-primary hover:text-primary-foreground"
               >
                 Contact Us

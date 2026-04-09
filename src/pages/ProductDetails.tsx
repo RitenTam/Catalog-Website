@@ -8,6 +8,8 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { getProductById } from '@/data/products';
 import { getOrCreateAnalyticsSessionId, recordWhatsAppClick } from '@/data/whatsappAnalytics';
+import { CONTACT_PHONE_NUMBER } from '@/lib/contact';
+import { buildWhatsAppSmartUrl } from '@/lib/whatsapp';
 
 const ProductDetails = () => {
   const { productId } = useParams();
@@ -40,12 +42,7 @@ const ProductDetails = () => {
     });
 
     const message = `Hi, I'm interested in ${product.name} (Code: ${product.productCode}). Please share price and availability.`;
-    const phoneNumber = '9779863651986';
-    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-
-    const whatsappUrl = isMobile
-      ? `whatsapp://send?phone=${phoneNumber}&text=${encodeURIComponent(message)}`
-      : `https://web.whatsapp.com/send?phone=${phoneNumber}&text=${encodeURIComponent(message)}`;
+    const whatsappUrl = buildWhatsAppSmartUrl(message, navigator.userAgent, CONTACT_PHONE_NUMBER);
 
     window.open(whatsappUrl, '_blank');
   };
